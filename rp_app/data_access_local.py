@@ -3,13 +3,11 @@ import sqlite3 as lite
 
 class DataAccess:
 
-    def __init__(self, in_memory=False):
-        if in_memory:
-            self.con = lite.connect(':memory:',
-                                    detect_types=lite.PARSE_DECLTYPES | lite.PARSE_COLNAMES)
-        else:
-            self.con = lite.connect('rp_local.db',
-                                    detect_types=lite.PARSE_DECLTYPES | lite.PARSE_COLNAMES)
+    def __init__(self, connection=None):
+        if connection is None:
+            connection = lite.connect('rp_local.db',
+                                      detect_types=lite.PARSE_DECLTYPES | lite.PARSE_COLNAMES)
+        self.con = connection
         with self.con:
             cur = self.con.cursor()
             cur.execute("CREATE TABLE IF NOT EXISTS LMUSER "
