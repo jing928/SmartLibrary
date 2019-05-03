@@ -5,7 +5,8 @@ class DataAccess:
 
     def __init__(self, in_memory=False):
         if in_memory:
-            self.con = lite.connect(':memory:')
+            self.con = lite.connect(':memory:',
+                                    detect_types=lite.PARSE_DECLTYPES | lite.PARSE_COLNAMES)
         else:
             self.con = lite.connect('rp_local.db',
                                     detect_types=lite.PARSE_DECLTYPES | lite.PARSE_COLNAMES)
