@@ -1,3 +1,4 @@
+from rp_app.user_login import UserLogin
 from rp_app.user_registration import UserRegistration
 
 
@@ -22,7 +23,8 @@ class Console:
             reg.start()
             self.start()
         elif choice == 2:
-            pass
+            login = UserLogin()
+            login.start()
 
     @staticmethod
     def print_menu(menu_items):
