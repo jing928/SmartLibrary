@@ -1,4 +1,5 @@
 from rp_app.data_access_local import DataAccess
+from rp_app.encryptor import Encryptor
 from rp_app.validator import Validator
 
 
@@ -11,6 +12,7 @@ class UserRegistration:
         self.__new_password = None
 
     def start(self):
+        print('\n** New User Registration **\n')
         self.ask_for_username()
         self.ask_for_fullname()
         self.ask_for_password()
@@ -45,6 +47,15 @@ class UserRegistration:
 
     def ask_for_password(self):
         is_valid = False
+        while not is_valid:
+            password = input('--> Enter the password here:\n'
+                             '(At least one letter and one number, minimum 6 characters)')
+            password = password.strip()
+            is_valid = Validator.validate_username(password)
+            if not is_valid:
+                print('Password entered does not meet the requirements...\n')
+        password = Encryptor.encrypt(password)
+        self.__new_password = password
 
     def register_user(self):
         if self.__new_username is None:
@@ -59,4 +70,4 @@ class UserRegistration:
         self.__dao.insert_user(username=self.__new_username,
                                fullname=self.__new_fullname,
                                password=self.__new_password)
-        print('Registration successful!')
+        print('\nRegistration successful!\n')
