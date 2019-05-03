@@ -29,6 +29,14 @@ class UserRegistration:
 
     def ask_for_fullname(self):
         is_valid = False
+        while not is_valid:
+            fullname = input('--> Enter your full name here:\n'
+                             '(Only <First Name> <Last Name> format is allowed. e.g. John Doe)')
+            fullname = fullname.strip()
+            is_valid = Validator.validate_fullname(fullname)
+            if not is_valid:
+                print('Full name entered does not meet the requirements...\n')
+        self.__new_fullname = fullname
 
     def ask_for_password(self):
         is_valid = False
