@@ -14,8 +14,17 @@ class DataAccess:
                         "(username TEXT PRIMARY KEY, "
                         "fullname TEXT NOT NULL, password TEXT NOT NULL)")
 
-    def __del__(self):
+    def close(self):
         self.con.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    def __del__(self):
+        self.close()
 
     def insert_user(self, username, fullname, password):
         cur = self.con.cursor()

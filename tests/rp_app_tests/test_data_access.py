@@ -13,18 +13,31 @@ class TestDataAccess(unittest.TestCase):
         self.connection.close()
         self.connection = None
 
+    def count_user(self):
+        cur = self.connection.cursor()
+        cur.execute('SELECT COUNT(*) FROM LMUSER')
+        count = cur.fetchone()[0]
+        return count
+
+    def test_insert_user(self):
+        with DataAccess(self.connection) as dao:
+            count = self.count_user()
+            dao.insert_user('user1', 'Jane Doe', 'abc123')
+            new_count = self.count_user()
+            self.assertTrue(count + 1 == new_count)
+
     def test_check_if_user_exists_false(self):
-        dao = DataAccess(self.connection)
-        username = 'test'
-        self.assertFalse(dao.check_if_user_exists(username))
+        with DataAccess(self.connection) as dao:
+            username = 'test'
+            self.assertFalse(dao.check_if_user_exists(username))
 
     def test_check_if_user_exists_true(self):
-        dao = DataAccess(self.connection)
-        username = 'test'
-        fullname = 'tester'
-        password = 'pwd'
-        dao.insert_user(username, fullname, password)
-        self.assertTrue(dao.check_if_user_exists(username))
+        with DataAccess(self.connection) as dao:
+            username = 'test'
+            fullname = 'tester'
+            password = 'pwd'
+            dao.insert_user(username, fullname, password)
+            self.assertTrue(dao.check_if_user_exists(username))
 
 
 if __name__ == '__main__':
