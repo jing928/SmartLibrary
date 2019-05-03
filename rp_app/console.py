@@ -1,3 +1,6 @@
+from rp_app.user_registration import UserRegistration
+
+
 class Console:
 
     def __init__(self):
@@ -8,10 +11,18 @@ class Console:
         ]
         self.menu_end_number = len(self.menu_items) - 1
 
-    def run_menu(self):
+    def start(self):
         Console.print_menu(self.menu_items)
         choice = Console.ask_for_input(self.menu_end_number)
-        print(choice)
+        self.__handle_choice(choice)
+
+    def __handle_choice(self, choice):
+        if choice == 1:
+            reg = UserRegistration()
+            reg.start()
+            self.start()
+        elif choice == 2:
+            pass
 
     @staticmethod
     def print_menu(menu_items):
