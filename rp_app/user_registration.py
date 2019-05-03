@@ -22,9 +22,14 @@ class UserRegistration:
             username = input('--> Enter the username here:\n'
                              '(Only letters and numbers are allowed, minimum 4 characters)')
             username = username.strip()
-            is_valid = Validator.validate_username(username)
-            if not is_valid:
+            is_input_valid = Validator.validate_username(username)
+            username_exists = self.__dao.check_if_user_exists(username)
+            is_valid = is_input_valid and not username_exists
+            if not is_input_valid:
                 print('Username entered does not meet the requirements...\n')
+            if username_exists:
+                print('The username already exists, please pick a new one.\n')
+
         self.__new_username = username
 
     def ask_for_fullname(self):
