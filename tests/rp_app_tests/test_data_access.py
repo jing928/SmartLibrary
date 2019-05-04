@@ -39,6 +39,13 @@ class TestDataAccess(unittest.TestCase):
             dao.insert_user(username, fullname, password)
             self.assertTrue(dao.check_if_user_exists(username))
 
+    def test_get_password_for_user(self):
+        with DataAccess(self.connection) as dao:
+            username = 'abcd'
+            password = 'abc123'
+            dao.insert_user(username, 'ab cd', password)
+            self.assertEqual(password, dao.get_password_for_user(username))
+
 
 if __name__ == '__main__':
     unittest.main()

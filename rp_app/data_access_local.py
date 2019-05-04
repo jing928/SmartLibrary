@@ -39,3 +39,9 @@ class DataAccess:
         if result == 0:
             return False
         return True
+
+    def get_password_for_user(self, username):
+        cur = self.con.cursor()
+        cur.execute("SELECT password FROM LMUSER WHERE username = ?", (username,))
+        result = cur.fetchone()[0]
+        return result
