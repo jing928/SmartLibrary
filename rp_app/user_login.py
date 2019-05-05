@@ -17,14 +17,12 @@ class UserLogin:
         self.login_user()
 
     def ask_for_username(self):
-        username = input('--> Enter the username here:\n'
-                         '(Only letters and numbers are allowed, minimum 4 characters)')
+        username = input('--> Enter the username here:')
         username = username.strip()
         self.__username = username
 
     def ask_for_password(self):
-        password = input('--> Enter the password here:\n'
-                         '(At least one letter and one number, minimum 6 characters)')
+        password = input('--> Enter the password here:')
         password = password.strip()
         self.__password = password
 
