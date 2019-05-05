@@ -21,29 +21,19 @@ class UserLogin:
 
 
     def ask_for_username(self):
-        is_valid = False
-        while not is_valid:
-            username = input('--> Enter the username here:\n'
-                             '(Only letters and numbers are allowed, minimum 4 characters)')
-            username = username.strip()
-            is_input_valid = Validator.validate_username(username)           
-            is_valid = is_input_valid
-            if not is_input_valid:
-                print('Username entered does not meet the requirements...\n')
-            
+
+        username = input('--> Enter the username here:\n'
+                            '(Only letters and numbers are allowed, minimum 4 characters)')
+        username = username.strip()
 
         self.__username = username
 
     def ask_for_password(self):
-        is_valid = False
-        while not is_valid:
-            password = input('--> Enter the password here:\n'
-                             '(At least one letter and one number, minimum 6 characters)')
-            password = password.strip()
-            is_valid = Validator.validate_username(password)
-            if not is_valid:
-                print('Password entered does not meet the requirements...\n')
-        
+
+        password = input('--> Enter the password here:\n'
+                            '(At least one letter and one number, minimum 6 characters)')
+        password = password.strip()
+
         self.__password = password
 
     def login_user(self):
@@ -61,40 +51,45 @@ class UserLogin:
                 if not password_correct:
                     print('Password or Username error(1)\n') # misleading info
                     self.start()
+                    return False
+            
             self.send_message(self.__username)
+            return True
+
         
         else:
             print('Password or Username error(2)\n')
             self.start()
+            return False
         
 
-
+    """ use TCP connection"""
     def send_message(self,msg):
         #!/usr/bin/env python3
         # Reference: https://realpython.com/python-sockets/
         # Documentation: https://docs.python.org/3/library/socket.html
-        HOST = input("Enter IP address of server: ")
+        #HOST = input("Enter IP address of server: ")
 
-        # HOST = "127.0.0.1" # The server's hostname or IP address.
+        HOST = "10.132.54.199" # The server's hostname or IP address.
         PORT = 65000         # The port used by the server.
         ADDRESS = (HOST, PORT)
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print("Connecting to {}...".format(ADDRESS))
             s.connect(ADDRESS)
+            print('connected')
             print("Busy")
 
-            while True:
-                message = msg                               
-                s.sendall(message.encode())
+            message = msg                               
+            s.sendall(message.encode())
+
+            while True:                
                 data = s.recv(4096)
 
                 if(data.decode('UTF-8')=="logout"):
                     print("Received {} bytes of data decoded to: '{}'".format(
                     len(data), data.decode()))
                     break
-                
-            
             print("Disconnecting from server.")
         print("Done.")
 

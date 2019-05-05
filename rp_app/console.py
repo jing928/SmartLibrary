@@ -25,6 +25,7 @@ class Console:
         elif choice == 2:
             login = UserLogin()
             login.start()
+            self.start()
 
     @staticmethod
     def print_menu(menu_items):
