@@ -1,8 +1,11 @@
+from mp_app.mp_console import MpConsole
+
 class MasterPiApp:
 
     @staticmethod
     def run():
-        pass
+        mp_console = MpConsole()
+        mp_console.start()
 
 
 if __name__ == '__main__':
