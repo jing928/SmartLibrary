@@ -56,7 +56,7 @@ class UserLogin:
         # Documentation: https://docs.python.org/3/library/socket.html
         # HOST = input("Enter IP address of server: ")
 
-        host = "10.132.54.199"  # The server's hostname or IP address.
+        host = "192.168.0.91"  # The server's hostname or IP address.
         port = 65000  # The port used by the server.
         address = (host, port)
 
