@@ -6,7 +6,6 @@ import socket
 
 class MpConsole:
 
-
     def __init__(self):
         """ initialize connection """
         # not sure if we can initialize connection in construction
@@ -20,73 +19,59 @@ class MpConsole:
         ]
         self.menu_end_number = len(self.menu_items) - 1
         self.__username = None
-        
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.HOST = ""              # Empty string means to listen on all IP's on the machine, also works with IPv6.
-                                    # Note "0.0.0.0" also works but only with IPv4.
-        self.PORT = 65000           # Port to listen on (non-privileged ports are > 1023).
-        self.ADDRESS = (self.HOST, self.PORT)
-        self.sock.bind(self.ADDRESS)
-        self.sock.listen()      #from here Mp starts listening
-        self.logout_msg = "logout"      #this is a final variable
-        
+        self.host = ""
+        self.port = 65000
+        self.address = (self.host, self.port)
+        self.sock.bind(self.address)
+        self.sock.listen()  # from here Mp starts listening
+        self.logout_msg = "logout"  # this is a final variable
 
-
-
-    def start(self):   
-        
-        """recieve username and start Mp program"""
+    def start(self):
+        """receive username and start Mp program"""
 
         # Mp will always try to connect with client
         # this loop will not break
         while True:
             print('waiting for a connection')
 
-            #connect with client (Rp)   
-            connection,client_address = self.sock.accept()         
+            # connect with client (Rp)
+            connection, client_address = self.sock.accept()
             try:
                 print('connection from', client_address)
-                
+
                 while True:
-
-                    #trying to get username from Rp, if succefully get username, start program on Mp
-                    self.username = connection.recv(4096)
-
-                    if self.username:
+                    # trying to get username from Rp,
+                    # if successfully get username, start program on Mp
+                    self.__username = connection.recv(4096)
+                    if self.__username:
 
                         MpConsole.print_menu(self.menu_items)
                         choice = MpConsole.ask_for_input(self.menu_end_number)
 
-                        if choice is not 4:                                                                                     
-                            self.__handle_choice(choice)
+                        if choice != 4:
+                            MpConsole.handle_choice(choice)
 
-                        # choice == 4 means log out, program will break connection loop to diconnected from client
-                        # then send logout message 
+                        # choice == 4 means log out, program will
+                        # break connection loop to disconnect from client
+                        # then send logout message
                         else:
-                            self.sock.sendall(self.logout_msg.encode())                                                                                                           
+                            self.sock.sendall(self.logout_msg.encode())
                             break
-            
+
             finally:
                 # Clean up the connection
                 connection.close()
                 print('disconnect from client')
-            
 
-        
-
-    def __handle_choice(self, choice):
-
-        if choice == 1:            
+    @staticmethod
+    def handle_choice(choice):
+        if choice == 1:
             print('search')
-
         elif choice == 2:
-            
             print('borrow')
         elif choice == 3:
-            
             print('return')
-
-        
 
     @staticmethod
     def print_menu(menu_items):
@@ -113,10 +98,3 @@ class MpConsole:
                 print('Invalid input: the choice must be an integer that '
                       'corresponds to the menu item.')
         return choice
-
-
-
- 
-
-
-
