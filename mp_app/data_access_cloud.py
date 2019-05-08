@@ -67,16 +67,18 @@ class DataAccessCloud():
         cur.execute('UPDATE Book SET Status = %s WHERE BookID = %s', ('unavailable', book_id))
         self.con.commit()
 
-    def return_book(self, book_borrowed_id):
+    def return_book(self, book_id, user_id):
         cur = self.con.cursor()
         return_date = date.today()
-        book_id = self.__get_book_id(book_borrowed_id)
+        book_borrowed_id = self.__get_book_borrowed_id(book_id, user_id)
         cur.execute('UPDATE BookBorrowed SET Status = %s, ReturnedDate = %s '
                     'WHERE BookBorrowedID = %s', ('returned', return_date, book_borrowed_id))
         cur.execute('UPDATE Book SET Status = %s WHERE BookID = %s', ('available', book_id))
         self.con.commit()
 
-    def __get_book_id(self, book_borrowed_id):
+    def __get_book_borrowed_id(self, book_id, user_id):
         cur = self.con.cursor()
-        cur.execute('SELECT BookID FROM BookBorrowed WHERE BookBorrowedID = %s', book_borrowed_id)
-        return cur.fetchone()['BookID']
+        cur.execute('SELECT BookBorrowedID FROM BookBorrowed '
+                    'WHERE BookID = %s AND LmsUserID = %s AND ReturnedDate IS NULL',
+                    (book_id, user_id))
+        return cur.fetchone()['BookBorrowedID']
