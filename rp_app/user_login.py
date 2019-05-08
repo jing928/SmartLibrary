@@ -1,18 +1,16 @@
 import socket
 from rp_app.encryptor import Encryptor
-from rp_app.data_access_local import DataAccess
 from utils.file_access import FileAccess
-import os
+from rp_app.data_access_local import DataAccessLocal
 
 
 class UserLogin:
-
     path = ".\\rp_app\\ip.json"
     ip_dict = FileAccess.json_to_dict(path)
     ip = ip_dict["ip"]
 
     def __init__(self):
-        self.__dao = DataAccess()
+        self.__dao = DataAccessLocal()
         self.__username = None
         self.__password = None
 
@@ -48,21 +46,21 @@ class UserLogin:
                     self.start()
                     return False
 
-            UserLogin.send_message(self.__username,self.ip)
+            UserLogin.send_message(self.__username, self.ip)
             return True
         print('Password or Username error(2)\n')
         self.start()
         return False
 
     @staticmethod
-    def send_message(msg,ip):
+    def send_message(msg, ip):
         """ use TCP connection"""
         # !/usr/bin/env python3
         # Reference: https://realpython.com/python-sockets/
         # Documentation: https://docs.python.org/3/library/socket.html
         # HOST = input("Enter IP address of server: ")
 
-        host =ip # The server's hostname or IP address.
+        host = ip  # The server's hostname or IP address.
         port = 65000  # The port used by the server.
         address = (host, port)
 

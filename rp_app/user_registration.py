@@ -1,4 +1,4 @@
-from rp_app.data_access_local import DataAccess
+from rp_app.data_access_local import DataAccessLocal
 from rp_app.encryptor import Encryptor
 from rp_app.validator import Validator
 
@@ -6,7 +6,7 @@ from rp_app.validator import Validator
 class UserRegistration:
 
     def __init__(self):
-        self.__dao = DataAccess()
+        self.__dao = DataAccessLocal()
         self.__new_username = None
         self.__new_fullname = None
         self.__new_password = None
