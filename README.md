@@ -13,10 +13,12 @@ blah blah
 
 ### Dependencies
 
-blah blah
+Run the following to install all required dependencies:
 
-1. blah blah
-2. blah blah
+1. `sudo apt-get install sqlite3`
+1. `pip3 install pymysql`
+1. 
+
 
 
 
