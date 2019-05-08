@@ -82,3 +82,9 @@ class DataAccessCloud():
                     'WHERE BookID = %s AND LmsUserID = %s AND ReturnedDate IS NULL',
                     (book_id, user_id))
         return cur.fetchone()['BookBorrowedID']
+
+    def list_borrowed_books(self, user_id):
+        cur = self.con.cursor()
+        cur.execute('SELECT BookID, Status, BorrowedDate FROM BookBorrowed '
+                    'WHERE LmsUserID = %s AND ReturnedDate IS NULL ', user_id)
+        return cur.fetchall()
