@@ -1,12 +1,12 @@
-from rp_app.console import Console
+from rp_app.rp_console import RpConsole
 
 
 class ReceptionPiApp:
 
     @staticmethod
     def run():
-        console = Console()
-        console.start()
+        rp_console = RpConsole()
+        rp_console.start()
 
 
 if __name__ == '__main__':

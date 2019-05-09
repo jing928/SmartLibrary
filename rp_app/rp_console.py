@@ -2,7 +2,7 @@ from rp_app.user_login import UserLogin
 from rp_app.user_registration import UserRegistration
 
 
-class Console:
+class RpConsole:
 
     def __init__(self):
         self.menu_items = [
@@ -13,8 +13,8 @@ class Console:
         self.menu_end_number = len(self.menu_items) - 1
 
     def start(self):
-        Console.print_menu(self.menu_items)
-        choice = Console.ask_for_input(self.menu_end_number)
+        RpConsole.print_menu(self.menu_items)
+        choice = RpConsole.ask_for_input(self.menu_end_number)
         self.__handle_choice(choice)
 
     def __handle_choice(self, choice):
