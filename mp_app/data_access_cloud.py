@@ -92,3 +92,8 @@ class DataAccessCloud():
         cur.execute('SELECT BookID, Status, BorrowedDate FROM BookBorrowed '
                     'WHERE LmsUserID = %s AND ReturnedDate IS NULL ', user_id)
         return cur.fetchall()
+
+    def get_book_details(self, book_id):
+        cur = self.con.cursor()
+        cur.execute('SELECT * FROM Book WHERE BookID = %s', book_id)
+        return cur.fetchone()
