@@ -50,13 +50,17 @@ class DataAccessCloud():
     def check_availability(self, book_id):
         cur = self.con.cursor()
         cur.execute('SELECT Status FROM Book WHERE BookID = %s', book_id)
-        result = cur.fetchone()['Status']
-        if result == 'available':
-            return True
+        result = cur.fetchone()
         if result is None:
             print("The book doesn't exist.")
-        if result == 'unavailable':
+            return False
+        status = result['Status']
+        if status == 'available':
+            return True
+        if status == 'unavailable':
             print('The book is not available.')
+            return False
+        print('Something went wrong...')
         return False
 
     def borrow_book(self, book_id, user_id):
