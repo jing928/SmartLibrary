@@ -116,4 +116,4 @@ venv.bak/
 .vscode/
 
 # DB Config
-db_config.json
+*config.json
