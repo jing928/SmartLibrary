@@ -17,7 +17,7 @@ Run the following to install all required dependencies:
 
 1. `sudo apt-get install sqlite3`
 1. `pip3 install pymysql`
-1. 
+1. `pip3 install tabulate`
 
 
 
