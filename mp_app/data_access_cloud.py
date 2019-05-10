@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from datetime import date
 
 import pymysql as mysql
@@ -5,7 +6,7 @@ import pymysql as mysql
 from utils.file_access import FileAccess
 
 
-class DataAccessCloud():
+class DataAccessCloud:
 
     def __init__(self, connection=None):
         if connection is None:
@@ -15,7 +16,7 @@ class DataAccessCloud():
                                        password=db_config['PASSWORD'],
                                        db=db_config['DATABASE'],
                                        charset='utf8mb4',
-                                       cursorclass=mysql.cursors.DictCursor)
+                                       cursorclass=OrderedDictCursor)
         self.con = connection
 
     def close(self):
@@ -97,3 +98,8 @@ class DataAccessCloud():
         cur = self.con.cursor()
         cur.execute('SELECT * FROM Book WHERE BookID = %s', book_id)
         return cur.fetchone()
+
+
+class OrderedDictCursor(mysql.cursors.DictCursorMixin, mysql.cursors.Cursor):
+
+    dict_type = OrderedDict
