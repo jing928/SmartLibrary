@@ -15,12 +15,12 @@ class BookFunction:
 
     def search(self):
         query = input('You can search by title, ISBN, or author.\n'
-                      '--> Please enter your search keywords here:')
+                      '--> Please enter your search keywords here: ')
         result = self.__dao.search(query)
         if not result:
             print('Sorry...there is no book matching the keywords.\n')
             return
-        self.__search_result = tabulate(result, headers='keys', tablefmt='fancy_grid')
+        self.__search_result = tabulate(result, headers='keys', tablefmt='simple')
         print(self.__search_result)
 
     def borrow(self):
@@ -37,7 +37,7 @@ class BookFunction:
     def __ask_for_book_id(self):
         book_found = False
         while not book_found:
-            input_id = input('--> Please enter the BookID here:')
+            input_id = input('--> Please enter the BookID here: ')
             if input_id.isdigit():
                 book_id = int(input_id)
                 book_found = self.__dao.check_availability(book_id)
