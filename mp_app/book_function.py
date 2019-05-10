@@ -33,8 +33,9 @@ class BookFunction:
             return
         print('** Below is your previous search result **\n')
         print(self.__search_result)
-        book_id = BookFunction.__ask_for_book_id(self.__dao.check_availability)
-        self.__borrow_helper(book_id)
+        book_ids = BookFunction.__ask_for_book_ids(self.__dao.check_availability)
+        for book_id in book_ids:
+            self.__borrow_helper(book_id)
 
     def return_book(self):
         books_borrowed = self.__dao.list_borrowed_books(self.__user_id)
@@ -43,8 +44,9 @@ class BookFunction:
             return
         print('** Below are the book(s) you have borrowed: **\n')
         print(BookFunction.__format_table(books_borrowed))
-        book_id = BookFunction.__ask_for_book_id(self.__dao.check_returnability)
-        self.__return_helper(book_id)
+        book_ids = BookFunction.__ask_for_book_ids(self.__dao.check_returnability)
+        for book_id in book_ids:
+            self.__return_helper(book_id)
 
     def __borrow_helper(self, book_id):
         borrow_date = date.today()
@@ -76,13 +78,31 @@ class BookFunction:
     def __ask_for_book_id(check_eligibility):
         book_found = False
         while not book_found:
-            input_id = input('\n--> Please enter the BookID here: ')
+            input_id = input('--> Please enter the BookID here: ')
+            if input_id == 'q':
+                book_id = input_id
+                break
             if input_id.isdigit():
                 book_id = int(input_id)
                 book_found = check_eligibility(book_id)
             else:
                 print('Error: please only enter a positive integer number.')
         return book_id
+
+    @staticmethod
+    def __ask_for_book_ids(check_eligibility):
+        ended = False
+        book_ids = []
+        while not ended:
+            print('\nContinue entering BookID or enter "q" to stop.')
+            book_id = BookFunction.__ask_for_book_id(check_eligibility)
+            if book_id == 'q':
+                ended = True
+            else:
+                book_ids.append(book_id)
+        return book_ids
+
+
 
     @staticmethod
     def __format_table(rows):
