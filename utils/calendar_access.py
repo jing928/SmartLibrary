@@ -1,5 +1,6 @@
 import os
 import pickle
+from datetime import timedelta
 
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -25,3 +26,32 @@ class CalendarAccess:
                 pickle.dump(creds, token)
 
         self.__service = build('calendar', 'v3', credentials=creds)
+
+    def add_due_date_event(self, title, desc, due_date):
+        date_format = '%Y-%m-%d'
+        tomorrow = (due_date + timedelta(days=1)).strftime(date_format)
+        event = {
+            'summary': title,
+            'description': desc,
+            'start': {
+                'date': due_date.strftime(date_format),
+                'timeZone': 'Australia/Melbourne',
+            },
+            'end': {
+                'date': tomorrow,
+                'timeZone': 'Australia/Melbourne',
+            },
+            'reminders': {
+                'useDefault': False,
+                'overrides': [
+                    {'method': 'email', 'minutes': 24 * 60},
+                    {'method': 'popup', 'minutes': 60},
+                ]
+            }
+        }
+        event = self.__service.events().insert(calendarId='primary', body=event).execute()
+        event_id = event.get('id')
+        return event_id
+
+    def delete_event(self, event_id):
+        self.__service.events().delete(calendarId='primary', eventId=event_id).execute()
