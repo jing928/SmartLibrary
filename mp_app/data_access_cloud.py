@@ -1,8 +1,5 @@
 from collections import OrderedDict
-from datetime import date
-
 import pymysql as mysql
-
 from utils.file_access import FileAccess
 
 
@@ -64,17 +61,15 @@ class DataAccessCloud:
         print('Something went wrong...')
         return False
 
-    def borrow_book(self, book_id, user_id):
+    def borrow_book(self, book_id, user_id, borrow_date, event_id):
         cur = self.con.cursor()
-        borrow_date = date.today()
-        cur.execute('INSERT INTO BookBorrowed (LmsUserID, BookID, Status, BorrowedDate)'
-                    'VALUES (%s, %s, %s, %s)', (user_id, book_id, 'borrowed', borrow_date))
+        cur.execute('INSERT INTO BookBorrowed (LmsUserID, BookID, Status, BorrowedDate, CalendarEventID)'
+                    'VALUES (%s, %s, %s, %s, %s)', (user_id, book_id, 'borrowed', borrow_date, event_id))
         cur.execute('UPDATE Book SET Status = %s WHERE BookID = %s', ('unavailable', book_id))
         self.con.commit()
 
-    def return_book(self, book_id, user_id):
+    def return_book(self, book_id, user_id, return_date):
         cur = self.con.cursor()
-        return_date = date.today()
         book_borrowed_id = self.__get_book_borrowed_id(book_id, user_id)
         cur.execute('UPDATE BookBorrowed SET Status = %s, ReturnedDate = %s '
                     'WHERE BookBorrowedID = %s', ('returned', return_date, book_borrowed_id))
@@ -101,5 +96,4 @@ class DataAccessCloud:
 
 
 class OrderedDictCursor(mysql.cursors.DictCursorMixin, mysql.cursors.Cursor):
-
     dict_type = OrderedDict
