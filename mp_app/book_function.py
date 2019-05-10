@@ -17,7 +17,7 @@ class BookFunction:
         self.__user_id = user_id
         self.__search_result = None
 
-    def search(self):
+    def search_for_book(self):
         query = input('You can search by title, ISBN, or author.\n'
                       '--> Please enter your search keywords here: ')
         result = self.__dao.search(query)
@@ -27,7 +27,7 @@ class BookFunction:
         self.__search_result = tabulate(result, headers='keys', tablefmt='simple')
         print(self.__search_result)
 
-    def borrow(self):
+    def borrow_book(self):
         if self.__search_result is None:
             print('Please search for a book first...')
             return
