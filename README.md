@@ -18,6 +18,7 @@ Run the following to install all required dependencies:
 1. `sudo apt-get install sqlite3`
 1. `pip3 install pymysql`
 1. `pip3 install tabulate`
+1. `pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib`
 
 
 
