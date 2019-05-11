@@ -71,7 +71,7 @@ class MpConsole:
             elif choice == 4:
                 print('logout')
                 flag = False
-                break
+                
 
     @staticmethod
     def print_menu(menu_items):
