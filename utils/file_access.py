@@ -18,3 +18,7 @@ class FileAccess:
     @staticmethod
     def get_db_config():
         return FileAccess.json_to_dict('db_config.json')
+
+    @staticmethod
+    def get_ip_config():
+        return FileAccess.json_to_dict('ip_config.json')

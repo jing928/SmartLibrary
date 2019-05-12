@@ -5,8 +5,7 @@ from rp_app.data_access_local import DataAccessLocal
 
 
 class UserLogin:
-    path = ".\\rp_app\\ip.json"
-    ip_dict = FileAccess.json_to_dict(path)
+    ip_dict = FileAccess.get_ip_config()
     ip = ip_dict["ip"]
 
     def __init__(self):
