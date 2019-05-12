@@ -1,5 +1,6 @@
 from mp_app.mp_console import MpConsole
 
+
 class MasterPiApp:
 
     @staticmethod

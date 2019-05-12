@@ -6,72 +6,69 @@ import socket
 
 class MpConsole:
     menu_items = [
-            '*** Welcome to the Smart Library Management System! ***',
-            'Search:',
-            'Borrow:',
-            'Return:',
-            'Logout',
-        ]
+        '*** Welcome to the Smart Library Management System! ***',
+        'Search:',
+        'Borrow:',
+        'Return:',
+        'Logout',
+    ]
     menu_end_number = len(menu_items) - 1
 
     def __init__(self):
         """ initialize vairables """
 
         self.__username = None
-        self.msg = 'logout'       
+        self.msg = 'logout'
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = ""
         self.port = 65000
         self.address = (self.host, self.port)
-        
 
     def start(self):
         """receive username and start Mp program"""
         while True:
-        # Mp will always try to connect with client
-        # this loop will not break
-            
+            # Mp will always try to connect with client
+            # this loop will not break
+
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 s.bind(self.address)
                 s.listen()
-                print('is listening')                        
+                print('is listening')
                 print("Listening on {}...".format(self.address))
                 while True:
                     print("Waiting for Reception Pi...")
                     conn, addr = s.accept()
                     with conn:
-                        while True:                                                       
-                            self.__username =conn.recv(4096)                           
+                        while True:
+                            self.__username = conn.recv(4096)
                             if self.__username:
                                 MpConsole.print_menu(self.menu_items)
                                 choice = MpConsole.ask_for_input(self.menu_end_number)
                                 MpConsole.handle_choice(choice)
                                 conn.sendall(self.msg.encode('UTF-8'))
                                 self.__username = None
-                                break            
-                    continue #keep listening
-                    
+                                break
+                    continue  # keep listening
 
     @staticmethod
     def handle_choice(choice):
         flag = True
         while flag is True:
             if choice == 1:
-                print('search') 
+                print('search')
                 MpConsole.print_menu(MpConsole.menu_items)
-                choice = MpConsole.ask_for_input(MpConsole.menu_end_number)         
+                choice = MpConsole.ask_for_input(MpConsole.menu_end_number)
             elif choice == 2:
                 print('borrow')
                 MpConsole.print_menu(MpConsole.menu_items)
-                choice = MpConsole.ask_for_input(MpConsole.menu_end_number)    
+                choice = MpConsole.ask_for_input(MpConsole.menu_end_number)
             elif choice == 3:
                 print('return')
                 MpConsole.print_menu(MpConsole.menu_items)
-                choice = MpConsole.ask_for_input(MpConsole.menu_end_number)    
+                choice = MpConsole.ask_for_input(MpConsole.menu_end_number)
             elif choice == 4:
                 print('logout')
                 flag = False
-                
 
     @staticmethod
     def print_menu(menu_items):
