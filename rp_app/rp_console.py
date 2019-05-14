@@ -9,23 +9,29 @@ class RpConsole:
             '*** Welcome to the Smart Library Management System! ***',
             'Register:',
             'Login:',
+            'Quit'
         ]
         self.menu_end_number = len(self.menu_items) - 1
 
     def start(self):
-        RpConsole.print_menu(self.menu_items)
-        choice = RpConsole.ask_for_input(self.menu_end_number)
-        self.__handle_choice(choice)
+        should_quit = False
+        while not should_quit:
+            RpConsole.print_menu(self.menu_items)
+            choice = RpConsole.ask_for_input(self.menu_end_number)
+            should_quit = self.__handle_choice(choice)
 
-    def __handle_choice(self, choice):
+    @staticmethod
+    def __handle_choice(choice):
         if choice == 1:
             reg = UserRegistration()
             reg.start()
-            self.start()
-        elif choice == 2:
+            return False
+        if choice == 2:
             login = UserLogin()
             login.start()
-            self.start()
+            return False
+        print('Quitting program...\n')
+        return True
 
     @staticmethod
     def print_menu(menu_items):
@@ -43,7 +49,7 @@ class RpConsole:
         menu_start_number = 1
         choice = 0
         while choice > menu_end_number or choice < menu_start_number:
-            input_string = input('\n--> Enter your choice here:')
+            input_string = input('\n--> Enter your choice here: ')
             if input_string.isdigit():
                 choice = int(input_string)
             else:

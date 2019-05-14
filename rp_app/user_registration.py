@@ -37,8 +37,8 @@ class UserRegistration:
     def ask_for_fullname(self):
         is_valid = False
         while not is_valid:
-            fullname = input('--> Enter your full name here:\n'
-                             '(Only <First Name> <Last Name> format is allowed. e.g. John Doe)')
+            fullname = input('--> Enter your full name here\n'
+                             '(Only <First Name> <Last Name> format is allowed. e.g. John Doe): ')
             fullname = fullname.strip()
             is_valid = Validator.validate_fullname(fullname)
             if not is_valid:
@@ -48,8 +48,8 @@ class UserRegistration:
     def ask_for_password(self):
         is_valid = False
         while not is_valid:
-            password = input('--> Enter the password here:\n'
-                             '(At least one letter and one number, minimum 6 characters)')
+            password = input('--> Enter the password here\n'
+                             '(At least one letter and one number, minimum 6 characters): ')
             password = password.strip()
             is_valid = Validator.validate_username(password)
             if not is_valid:

@@ -20,12 +20,12 @@ class UserLogin:
         self.login_user()
 
     def ask_for_username(self):
-        username = input('--> Enter the username here:')
+        username = input('--> Enter the username here: ')
         username = username.strip()
         self.__username = username
 
     def ask_for_password(self):
-        password = input('--> Enter the password here:')
+        password = input('--> Enter the password here: ')
         password = password.strip()
         self.__password = password
 
@@ -33,15 +33,14 @@ class UserLogin:
         username_exists = self.__dao.check_if_user_exists(self.__username)
         if not username_exists:
             print("Username doesn't exist...")
-            return False
+            return
 
         hashed_password = self.__dao.get_password_for_user(self.__username)
         password_correct = Encryptor.verify(self.__password, hashed_password)
         if not password_correct:
             print('Incorrect password.\n')
-            return False
+            return
         UserLogin.send_message(self.__username, self.__server_ip)
-        return True
 
     @staticmethod
     def send_message(msg, server_ip):
