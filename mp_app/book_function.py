@@ -1,5 +1,4 @@
 from datetime import date, timedelta
-
 from tabulate import tabulate
 from mp_app.data_access_cloud import DataAccessCloud
 from utils.calendar_access import CalendarAccess
