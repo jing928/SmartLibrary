@@ -11,23 +11,25 @@ create table LmsUser
 
 create table Book
 (
-    BookID        int          not null auto_increment,
-    ISBN          nvarchar(20) not null,
-    Title         text         not null,
-    Author        text         not null,
-    PublishedDate date         not null,
+    BookID        int                              not null auto_increment,
+    ISBN          nvarchar(20)                     not null,
+    Title         text                             not null,
+    Author        text                             not null,
+    PublishedDate date                             not null,
+    Status        enum ('available','unavailable') not null default 'available',
     constraint PK_Book primary key (BookID),
     constraint UN_ISBN unique (ISBN)
 );
 
 create table BookBorrowed
 (
-    BookBorrowedID int  not null auto_increment,
-    LmsUserID      int  not null,
-    BookID         int  not null,
-    Status         enum ('borrowed', 'returned'),
-    BorrowedDate   date not null,
-    ReturnedDate   date null,
+    BookBorrowedID  int  not null auto_increment,
+    LmsUserID       int  not null,
+    BookID          int  not null,
+    Status          enum ('borrowed', 'returned'),
+    BorrowedDate    date not null,
+    ReturnedDate    date null,
+    CalendarEventID text,
     constraint PK_BookBorrowed primary key (BookBorrowedID),
     constraint FK_BookBorrowed_LmsUser foreign key (LmsUserID) references LmsUser (LmsUserID),
     constraint FK_BookBorrowed_Book foreign key (BookID) references Book (BookID)
@@ -64,15 +66,3 @@ insert into Book (ISBN, Title, Author, PublishedDate)
 values ('978-0857523921', 'The Girl on the Train', 'Paula Hawkins', '2015-01-13');
 insert into Book (ISBN, Title, Author, PublishedDate)
 values ('978-1982129736', 'The Mueller Report', 'The Washington Post', '2019-03-01');
-
-# Insert data to Book table
-insert into BookBorrowed (LmsUserID, BookID, Status, BorrowedDate, ReturnedDate)
-values (1, 1, 'borrowed', '2019-05-01', null);
-insert into BookBorrowed (LmsUserID, BookID, Status, BorrowedDate, ReturnedDate)
-values (2, 2, 'returned', '2018-04-01', '2018-04-30');
-insert into BookBorrowed (LmsUserID, BookID, Status, BorrowedDate, ReturnedDate)
-values (2, 7, 'returned', '2018-11-01', '2018-11-30');
-insert into BookBorrowed (LmsUserID, BookID, Status, BorrowedDate, ReturnedDate)
-values (3, 5, 'borrowed', '2018-04-15', null);
-insert into BookBorrowed (LmsUserID, BookID, Status, BorrowedDate, ReturnedDate)
-values (4, 4, 'borrowed', '2018-04-22', null);
