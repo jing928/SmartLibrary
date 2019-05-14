@@ -1,18 +1,15 @@
 import socket
-from rp_app.encryptor import Encryptor
-from rp_app.data_access_local import DataAccess
 from utils.file_access import FileAccess
-import os
+from rp_app.encryptor import Encryptor
+from rp_app.data_access_local import DataAccessLocal
 
 
 class UserLogin:
 
-    path = ".\\rp_app\\ip.json"
-    ip_dict = FileAccess.json_to_dict(path)
-    ip = ip_dict["ip"]
-
     def __init__(self):
-        self.__dao = DataAccess()
+        self.__dao = DataAccessLocal()
+        ip_dict = FileAccess.get_ip_config()
+        self.__server_ip = ip_dict["ip"]
         self.__username = None
         self.__password = None
 
@@ -23,46 +20,37 @@ class UserLogin:
         self.login_user()
 
     def ask_for_username(self):
-        username = input('--> Enter the username here:')
+        username = input('--> Enter the username here: ')
         username = username.strip()
         self.__username = username
 
     def ask_for_password(self):
-        password = input('--> Enter the password here:')
+        password = input('--> Enter the password here: ')
         password = password.strip()
         self.__password = password
 
     def login_user(self):
         username_exists = self.__dao.check_if_user_exists(self.__username)
+        if not username_exists:
+            print("Username doesn't exist...")
+            return
 
-        if username_exists:
-            is_valid = False
-            while not is_valid:
-                hashed_password = self.__dao.get_password_for_user(self.__username)
-                password_correct = Encryptor.verify(self.__password, hashed_password)
-
-                is_valid = password_correct
-
-                if not password_correct:
-                    print('Password or Username error(1)\n')  # misleading info
-                    self.start()
-                    return False
-
-            UserLogin.send_message(self.__username,self.ip)
-            return True
-        print('Password or Username error(2)\n')
-        self.start()
-        return False
+        hashed_password = self.__dao.get_password_for_user(self.__username)
+        password_correct = Encryptor.verify(self.__password, hashed_password)
+        if not password_correct:
+            print('Incorrect password.\n')
+            return
+        UserLogin.send_message(self.__username, self.__server_ip)
 
     @staticmethod
-    def send_message(msg,ip):
+    def send_message(msg, server_ip):
         """ use TCP connection"""
         # !/usr/bin/env python3
         # Reference: https://realpython.com/python-sockets/
         # Documentation: https://docs.python.org/3/library/socket.html
         # HOST = input("Enter IP address of server: ")
 
-        host =ip # The server's hostname or IP address.
+        host = server_ip  # The server's hostname or IP address.
         port = 65000  # The port used by the server.
         address = (host, port)
 

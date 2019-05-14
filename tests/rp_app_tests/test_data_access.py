@@ -1,6 +1,6 @@
 import unittest
 import sqlite3 as lite
-from rp_app.data_access_local import DataAccess
+from rp_app.data_access_local import DataAccessLocal
 
 
 class TestDataAccess(unittest.TestCase):
@@ -20,19 +20,19 @@ class TestDataAccess(unittest.TestCase):
         return count
 
     def test_insert_user(self):
-        with DataAccess(self.connection) as dao:
+        with DataAccessLocal(self.connection) as dao:
             count = self.count_user()
             dao.insert_user('user1', 'Jane Doe', 'abc123')
             new_count = self.count_user()
             self.assertTrue(count + 1 == new_count)
 
     def test_check_if_user_exists_false(self):
-        with DataAccess(self.connection) as dao:
+        with DataAccessLocal(self.connection) as dao:
             username = 'test'
             self.assertFalse(dao.check_if_user_exists(username))
 
     def test_check_if_user_exists_true(self):
-        with DataAccess(self.connection) as dao:
+        with DataAccessLocal(self.connection) as dao:
             username = 'test'
             fullname = 'tester'
             password = 'pwd'
@@ -40,7 +40,7 @@ class TestDataAccess(unittest.TestCase):
             self.assertTrue(dao.check_if_user_exists(username))
 
     def test_get_password_for_user(self):
-        with DataAccess(self.connection) as dao:
+        with DataAccessLocal(self.connection) as dao:
             username = 'abcd'
             password = 'abc123'
             dao.insert_user(username, 'ab cd', password)

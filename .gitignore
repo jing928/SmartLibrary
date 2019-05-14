@@ -117,3 +117,7 @@ venv.bak/
 
 # DB Config
 *config.json
+
+# Google API
+credentials.json
+token.pickle

@@ -1,7 +1,7 @@
 import sqlite3 as lite
 
 
-class DataAccess:
+class DataAccessLocal:
 
     def __init__(self, connection=None):
         if connection is None:
