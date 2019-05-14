@@ -5,70 +5,61 @@ import socket
 
 
 class MpConsole:
-    menu_items = [
-        '*** Welcome to the Smart Library Management System! ***',
-        'Search:',
-        'Borrow:',
-        'Return:',
-        'Logout',
-    ]
-    menu_end_number = len(menu_items) - 1
+    MSG = 'logout'
 
     def __init__(self):
-        """ initialize vairables """
-
+        self.menu_items = [
+            '*** Welcome to the Smart Library Management System! ***',
+            'Search:',
+            'Borrow:',
+            'Return:',
+            'Logout',
+        ]
+        self.menu_end_number = len(self.menu_items) - 1
         self.__username = None
-        self.msg = 'logout'
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.host = ""
-        self.port = 65000
-        self.address = (self.host, self.port)
 
     def start(self):
         """receive username and start Mp program"""
-        while True:
-            # Mp will always try to connect with client
-            # this loop will not break
+        host = ''
+        port = 65000
+        address = (host, port)
+        # Mp will always try to connect with client
+        # this loop will not break
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as soc:
+            soc.bind(address)
+            soc.listen()
+            print("Listening on {}...".format(address))
+            while True:
+                print("Waiting for Reception Pi...")
+                conn, addr = soc.accept()
+                with conn:
+                    print("Connected to {}".format(addr))
+                    self.__username = conn.recv(4096)
+                    if self.__username:
+                        self.run_menu()
+                        conn.sendall(MpConsole.MSG.encode('UTF-8'))
+                        self.__username = None
 
-            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                s.bind(self.address)
-                s.listen()
-                print('is listening')
-                print("Listening on {}...".format(self.address))
-                while True:
-                    print("Waiting for Reception Pi...")
-                    conn, addr = s.accept()
-                    with conn:
-                        while True:
-                            self.__username = conn.recv(4096)
-                            if self.__username:
-                                MpConsole.print_menu(self.menu_items)
-                                choice = MpConsole.ask_for_input(self.menu_end_number)
-                                MpConsole.handle_choice(choice)
-                                conn.sendall(self.msg.encode('UTF-8'))
-                                self.__username = None
-                                break
-                    continue  # keep listening
+    def run_menu(self):
+        should_quit = False
+        while not should_quit:
+            MpConsole.print_menu(self.menu_items)
+            choice = MpConsole.ask_for_input(self.menu_end_number)
+            should_quit = MpConsole.__handle_choice(choice)
 
     @staticmethod
-    def handle_choice(choice):
-        flag = True
-        while flag is True:
-            if choice == 1:
-                print('search')
-                MpConsole.print_menu(MpConsole.menu_items)
-                choice = MpConsole.ask_for_input(MpConsole.menu_end_number)
-            elif choice == 2:
-                print('borrow')
-                MpConsole.print_menu(MpConsole.menu_items)
-                choice = MpConsole.ask_for_input(MpConsole.menu_end_number)
-            elif choice == 3:
-                print('return')
-                MpConsole.print_menu(MpConsole.menu_items)
-                choice = MpConsole.ask_for_input(MpConsole.menu_end_number)
-            elif choice == 4:
-                print('logout')
-                flag = False
+    def __handle_choice(choice):
+        if choice == 1:
+            print('search')
+            return False
+        if choice == 2:
+            print('borrow')
+            return False
+        if choice == 3:
+            print('return')
+            return False
+        print('Logging out...\n')
+        return True
 
     @staticmethod
     def print_menu(menu_items):
