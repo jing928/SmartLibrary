@@ -2,6 +2,7 @@
 # Reference: https://realpython.com/python-sockets/
 # Documentation: https://docs.python.org/3/library/socket.html
 import socket
+from utils.menu_helper import MenuHelper
 
 
 class MpConsole:
@@ -43,8 +44,8 @@ class MpConsole:
     def run_menu(self):
         should_quit = False
         while not should_quit:
-            MpConsole.print_menu(self.menu_items)
-            choice = MpConsole.ask_for_input(self.menu_end_number)
+            MenuHelper.print_menu(self.menu_items)
+            choice = MenuHelper.ask_for_input(self.menu_end_number)
             should_quit = MpConsole.__handle_choice(choice)
 
     @staticmethod
@@ -60,29 +61,3 @@ class MpConsole:
             return False
         print('Logging out...\n')
         return True
-
-    @staticmethod
-    def print_menu(menu_items):
-        for index, item in enumerate(menu_items):
-            if index == 0:
-                print(item)
-                print('\n')
-            else:
-                menu_item = "{item:<9s} {choice:>1d}".format(item=item,
-                                                             choice=index)
-                print(menu_item)
-
-    @staticmethod
-    def ask_for_input(menu_end_number):
-        menu_start_number = 1
-        choice = 0
-        while choice > menu_end_number or choice < menu_start_number:
-            input_string = input('\n--> Enter your choice here:')
-            if input_string.isdigit():
-                choice = int(input_string)
-            else:
-                choice = 0
-            if choice > menu_end_number or choice < menu_start_number:
-                print('Invalid input: the choice must be an integer that '
-                      'corresponds to the menu item.')
-        return choice
