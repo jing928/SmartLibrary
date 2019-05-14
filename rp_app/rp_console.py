@@ -18,7 +18,7 @@ class RpConsole:
         while not should_quit:
             RpConsole.print_menu(self.menu_items)
             choice = RpConsole.ask_for_input(self.menu_end_number)
-            should_quit = self.__handle_choice(choice)
+            should_quit = RpConsole.__handle_choice(choice)
 
     @staticmethod
     def __handle_choice(choice):
