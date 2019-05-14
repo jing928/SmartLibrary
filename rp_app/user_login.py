@@ -1,15 +1,15 @@
 import socket
-from rp_app.encryptor import Encryptor
 from utils.file_access import FileAccess
+from rp_app.encryptor import Encryptor
 from rp_app.data_access_local import DataAccessLocal
 
 
 class UserLogin:
-    ip_dict = FileAccess.get_ip_config()
-    ip = ip_dict["ip"]
 
     def __init__(self):
         self.__dao = DataAccessLocal()
+        ip_dict = FileAccess.get_ip_config()
+        self.__server_ip = ip_dict["ip"]
         self.__username = None
         self.__password = None
 
@@ -31,35 +31,27 @@ class UserLogin:
 
     def login_user(self):
         username_exists = self.__dao.check_if_user_exists(self.__username)
+        if not username_exists:
+            print("Username doesn't exist...")
+            return False
 
-        if username_exists:
-            is_valid = False
-            while not is_valid:
-                hashed_password = self.__dao.get_password_for_user(self.__username)
-                password_correct = Encryptor.verify(self.__password, hashed_password)
-
-                is_valid = password_correct
-
-                if not password_correct:
-                    print('Password or Username error(1)\n')  # misleading info
-                    self.start()
-                    return False
-
-            UserLogin.send_message(self.__username, self.ip)
-            return True
-        print('Password or Username error(2)\n')
-        self.start()
-        return False
+        hashed_password = self.__dao.get_password_for_user(self.__username)
+        password_correct = Encryptor.verify(self.__password, hashed_password)
+        if not password_correct:
+            print('Incorrect password.\n')
+            return False
+        UserLogin.send_message(self.__username, self.__server_ip)
+        return True
 
     @staticmethod
-    def send_message(msg, ip):
+    def send_message(msg, server_ip):
         """ use TCP connection"""
         # !/usr/bin/env python3
         # Reference: https://realpython.com/python-sockets/
         # Documentation: https://docs.python.org/3/library/socket.html
         # HOST = input("Enter IP address of server: ")
 
-        host = ip  # The server's hostname or IP address.
+        host = server_ip  # The server's hostname or IP address.
         port = 65000  # The port used by the server.
         address = (host, port)
 
