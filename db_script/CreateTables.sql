@@ -1,5 +1,7 @@
-Use People; # replace with the real database name
+-- replace with real database name
+Use SmartLibrary; 
 
+-- Create Database Schema
 create table LmsUser
 (
     LmsUserID int           not null auto_increment,
@@ -35,17 +37,13 @@ create table BookBorrowed
     constraint FK_BookBorrowed_Book foreign key (BookID) references Book (BookID)
 );
 
-# Insert data to User table
-insert into LmsUser (UserName, Name)
-values ('jing', 'Jing Li');
-insert into LmsUser (UserName, Name)
-values ('cc', 'Charles Cheng');
-insert into LmsUser (UserName, Name)
-values ('flydog', 'Yanan Guo');
-insert into LmsUser (UserName, Name)
-values ('darren', 'Darren Qian');
+-- Insert data to User table
+insert into LmsUser (UserName, Name) values ('jing', 'Jing Li');
+insert into LmsUser (UserName, Name) values ('cheng', 'Charles Cheng');
+insert into LmsUser (UserName, Name) values ('flydog', 'Yanan Guo');
+insert into LmsUser (UserName, Name) values ('qian', 'Darren Qian');
 
-# Insert data to Book table
+-- Insert data to Book table
 insert into Book (ISBN, Title, Author, PublishedDate)
 values ('978-0439023528', 'The Hunger Games', 'Suzanne Collins', '2010-01-01');
 insert into Book (ISBN, Title, Author, PublishedDate)
