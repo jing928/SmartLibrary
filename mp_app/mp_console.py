@@ -13,8 +13,10 @@ class MpConsole:
 
     Attributes:
         MSG (str): a default reply message.
-        menu_items ([str]): a list of menu items to print.
+        menu_items (list): a list of menu items to print.
         menu_end_number (int): the choice number for the last selectable item.
+        search_menu_items (list): a list of search menu items to print
+        search_menu_end_number (int): the choice number for the last selectable item.
         __username (str, None): the username of the current logged in user.
         ___book_function (BookFunction, None): the BookFunction object
     """
@@ -117,11 +119,28 @@ class MpConsole:
         return True
 
     def run_search_menu(self):
+        """Runs the main menu
+
+        It shows the search menu for user to pick a search method.
+
+        Returns:
+            None
+
+        """
         MenuHelper.print_menu(self.search_menu_items)
         choice = MenuHelper.ask_for_input(self.search_menu_end_number)
         self.__handle_search_choice(choice)
 
     def __handle_search_choice(self, choice):
+        """Delegates user choice to corresponding method to handle
+
+        Args:
+            choice: the user's choice of a menu item.
+
+        Returns:
+            None
+
+        """
         if choice == 1:
             self.__book_function.search_for_book()
         elif choice == 2:
