@@ -19,6 +19,10 @@ Run the following to install all required dependencies:
 1. `pip3 install pymysql`
 1. `pip3 install tabulate`
 1. `pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib`
+1. `pip3 install SpeechRecognition`
+1. `sudo apt-get install portaudio19-dev python-all-dev python3-all-dev`
+1. `pip3 install pyaudio`
+1. `sudo apt-get install flac`
 
 
 
