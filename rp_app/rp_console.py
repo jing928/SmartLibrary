@@ -31,7 +31,8 @@ class RpConsole:
         It will continue showing the menu and asking for selection
         unless the user chooses to quit.
 
-        Returns: None
+        Returns:
+            None
 
         """
         should_quit = False

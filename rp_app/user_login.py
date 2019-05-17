@@ -31,7 +31,8 @@ class UserLogin:
 
         It calls a series of other methods to complete the process.
 
-        Returns: None
+        Returns:
+            None
 
         """
         print('\n** User Login **\n')
@@ -42,7 +43,8 @@ class UserLogin:
     def ask_for_username(self):
         """Prompts user to enter the username
 
-        Returns: None
+        Returns:
+            None
 
         """
         username = input('--> Enter the username here: ')
@@ -52,7 +54,8 @@ class UserLogin:
     def ask_for_password(self):
         """Prompts user to enter the password
 
-        Returns: None
+        Returns:
+            None
 
         """
         password = input('--> Enter the password here: ')
@@ -66,7 +69,8 @@ class UserLogin:
         It then checks if the password is correct, if not then return.
         If everything is correct, it sends user info to the Master Pi.
 
-        Returns: None
+        Returns:
+            None
 
         """
         username_exists = self.__dao.check_if_user_exists(self.__username)
@@ -93,7 +97,8 @@ class UserLogin:
             msg: the message to be sent
             server_ip: the IP address of the server
 
-        Returns: None
+        Returns:
+            None
 
         """
         # Reference: https://realpython.com/python-sockets/

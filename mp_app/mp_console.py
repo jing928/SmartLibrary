@@ -42,7 +42,8 @@ class MpConsole:
 
         Once the user logs out, it will go back to listening for new messages.
 
-        Returns: None
+        Returns:
+            None
 
         """
         host = ''
@@ -73,7 +74,8 @@ class MpConsole:
         It will keep showing the menu and asking for user selection until
         the user logs out.
 
-        Returns: None
+        Returns:
+            None
 
         """
         should_quit = False

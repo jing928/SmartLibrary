@@ -29,7 +29,8 @@ class UserRegistration:
 
         It calls a series of other methods to complete the process.
 
-        Returns: None
+        Returns:
+            None
 
         """
         print('\n** New User Registration **\n')
@@ -44,7 +45,8 @@ class UserRegistration:
         It will continue asking until the required format is met and the entered username
         has been taken.
 
-        Returns: None
+        Returns:
+            None
 
         """
         is_valid = False
@@ -67,7 +69,8 @@ class UserRegistration:
 
         It will continue asking until the required format is met.
 
-        Returns: None
+        Returns:
+            None
 
         """
         is_valid = False
@@ -86,7 +89,8 @@ class UserRegistration:
         It will continue asking until the required format is met. It will also encrypt
         the password before saving.
 
-        Returns: None
+        Returns:
+            None
 
         """
         is_valid = False
@@ -103,7 +107,8 @@ class UserRegistration:
     def register_user(self):
         """Saves the user information to the database
 
-        Returns: None
+        Returns:
+            None
 
         """
         if self.__new_username is None:
