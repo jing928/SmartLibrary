@@ -16,7 +16,7 @@ class Encryptor:
 
     @staticmethod
     def encrypt(password):
-        """ Encrypt a plain password string using hash and salt.
+        """Encrypt a plain password string using hash and salt.
 
         It creates a random salt using SHA-256 method and then creates a hash of
         the plain password plus the salt.

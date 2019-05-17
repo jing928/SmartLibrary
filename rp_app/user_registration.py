@@ -1,9 +1,22 @@
+"""
+This module provides functionality of user registration.
+"""
+
 from rp_app.data_access_local import DataAccessLocal
 from rp_app.encryptor import Encryptor
 from rp_app.validator import Validator
 
 
 class UserRegistration:
+    """
+    UserRegistration class handles user registration process.
+
+    Attributes:
+        __dao (DataAccessLocal): data access object to the local database.
+        __new_username (str, None): the entered username.
+        __new_fullname (str, None): the entered full name.
+        __new_password (str, None): the entered password.
+    """
 
     def __init__(self):
         self.__dao = DataAccessLocal()
@@ -12,6 +25,13 @@ class UserRegistration:
         self.__new_password = None
 
     def start(self):
+        """Starts the user registration process
+
+        It calls a series of other methods to complete the process.
+
+        Returns: None
+
+        """
         print('\n** New User Registration **\n')
         self.ask_for_username()
         self.ask_for_fullname()
@@ -19,6 +39,14 @@ class UserRegistration:
         self.register_user()
 
     def ask_for_username(self):
+        """Prompts user to enter the username
+
+        It will continue asking until the required format is met and the entered username
+        has been taken.
+
+        Returns: None
+
+        """
         is_valid = False
         while not is_valid:
             username = input('--> Enter the username here:\n'
@@ -35,6 +63,13 @@ class UserRegistration:
         self.__new_username = username
 
     def ask_for_fullname(self):
+        """Prompts user to enter the full name
+
+        It will continue asking until the required format is met.
+
+        Returns: None
+
+        """
         is_valid = False
         while not is_valid:
             fullname = input('--> Enter your full name here\n'
@@ -46,6 +81,14 @@ class UserRegistration:
         self.__new_fullname = fullname
 
     def ask_for_password(self):
+        """Prompts user to enter the password
+
+        It will continue asking until the required format is met. It will also encrypt
+        the password before saving.
+
+        Returns: None
+
+        """
         is_valid = False
         while not is_valid:
             password = input('--> Enter the password here\n'
@@ -58,6 +101,11 @@ class UserRegistration:
         self.__new_password = password
 
     def register_user(self):
+        """Saves the user information to the database
+
+        Returns: None
+
+        """
         if self.__new_username is None:
             print("Error: username wasn't saved correctly...")
             return
