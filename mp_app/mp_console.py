@@ -27,9 +27,16 @@ class MpConsole:
             'Search:',
             'Borrow:',
             'Return:',
-            'Logout',
+            'Logout:',
         ]
         self.menu_end_number = len(self.menu_items) - 1
+        self.search_menu_items = [
+            '** Search Options **',
+            'Use text:',
+            'Use voice:',
+            'Go back:'
+        ]
+        self.search_menu_end_number = len(self.search_menu_items) - 1
         self.__username = None
         self.__book_function = None
 
@@ -98,7 +105,7 @@ class MpConsole:
 
         """
         if choice == 1:
-            self.__book_function.search_for_book()
+            self.run_search_menu()
             return False
         if choice == 2:
             self.__book_function.borrow_book()
@@ -108,3 +115,14 @@ class MpConsole:
             return False
         print('Logging out...\n')
         return True
+
+    def run_search_menu(self):
+        MenuHelper.print_menu(self.search_menu_items)
+        choice = MenuHelper.ask_for_input(self.search_menu_end_number)
+        self.__handle_search_choice(choice)
+
+    def __handle_search_choice(self, choice):
+        if choice == 1:
+            self.__book_function.search_for_book()
+        elif choice == 2:
+            self.__book_function.search_for_book_voice()
