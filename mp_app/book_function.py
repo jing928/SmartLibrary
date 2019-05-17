@@ -1,3 +1,7 @@
+"""
+This module provides functionality for search, borrow, and return a book.
+"""
+
 from datetime import date, timedelta
 from tabulate import tabulate
 from mp_app.data_access_cloud import DataAccessCloud
@@ -5,6 +9,16 @@ from utils.calendar_access import CalendarAccess
 
 
 class BookFunction:
+    """
+    BookFunction class handles search, borrow, and return a book for a specific user.
+
+    Attributes:
+        __username (str): the username of the current user.
+        __dao (DataAccessCloud): a data access object to communicate with the cloud database.
+        __cal (CalendarAccess): a calendar access object to communicate with Google Calendar.
+        __user_id (str): the internal ID of the current user.
+        __search_result (str, None): saves the last search result made by the user.
+    """
 
     def __init__(self, username):
         self.__username = username
@@ -17,6 +31,18 @@ class BookFunction:
         self.__search_result = None
 
     def search_for_book(self):
+        """Helps user search for a book to borrow
+
+        It first asks user for the search query and then calls the data
+        access object to handle the search.
+
+        If nothing matches the query, returns, otherwise, format, save,
+        and print the results to stdout.
+
+        Returns:
+            None
+
+        """
         query = input('You can search by title, ISBN, or author.\n'
                       '--> Please enter your search keywords here: ')
         result = self.__dao.search(query)
@@ -27,6 +53,18 @@ class BookFunction:
         print(self.__search_result)
 
     def borrow_book(self):
+        """Helps user borrow a book
+
+        If the user hasn't searched, it will ask the user to search first and return.
+        If the user has searched, it will print the previous search results and asks
+        user to make a selection of one or more books to borrow.
+
+        Then it will call __borrow_helper to process borrow for each of the selected books.
+
+        Returns:
+            None
+
+        """
         if self.__search_result is None:
             print('Please search for a book first...')
             return
@@ -37,6 +75,18 @@ class BookFunction:
             self.__borrow_helper(book_id)
 
     def return_book(self):
+        """Helps user return a book
+
+        If the user has unreturned books, it will print out the list of borrowed books,
+        otherwise return.
+
+        Then it will ask the user to select one or more books to return and call __return_helper
+        method to process each of the selected books.
+
+        Returns:
+            None
+
+        """
         books_borrowed = self.__dao.list_borrowed_books(self.__user_id)
         if not books_borrowed:
             print("You haven't borrowed any book. Nothing to return.")
@@ -48,6 +98,18 @@ class BookFunction:
             self.__return_helper(book_id)
 
     def __borrow_helper(self, book_id):
+        """Facilitates borrowing a specific book
+
+        It creates a calendar event on the due date (one week after today),
+        and then creates a new book borrowing transaction in the database.
+
+        Args:
+            book_id: the ID of the book to be borrowed.
+
+        Returns:
+            None
+
+        """
         borrow_date = date.today()
         due_date = borrow_date + timedelta(days=7)
         detail = self.__create_event_detail(book_id)
@@ -57,6 +119,18 @@ class BookFunction:
         print('Book successfully borrowed!')
 
     def __return_helper(self, book_id):
+        """Facilitates returning a specific book
+
+        It deletes the calendar event for this book on the due date, and
+        then update the book borrowing transaction and book status.
+
+        Args:
+            book_id: the ID of the book to be returned.
+
+        Returns:
+            None
+
+        """
         return_date = date.today()
         book_borrowed_id = self.__dao.get_book_borrowed_id(book_id, self.__user_id)
         event_id = self.__dao.get_calendar_event_id(book_borrowed_id)
@@ -65,6 +139,18 @@ class BookFunction:
         print('Book successfully returned!')
 
     def __create_event_detail(self, book_id):
+        """Creates detailed info for a specific book to be borrowed
+
+        It first retrieves the book details from the database and then
+        formats it to be used in creating calendar event.
+
+        Args:
+            book_id: the ID of the book to get information.
+
+        Returns:
+            dict: a dictionary of summary and description of the event.
+
+        """
         details = self.__dao.get_book_details(book_id)
         book_title = details['Title']
         summary = 'Return {title}'.format(title=book_title)
@@ -75,6 +161,21 @@ class BookFunction:
 
     @staticmethod
     def __ask_for_book_id(check_eligibility):
+        """Prompts user to select a book ID
+
+        It will continue asking user to enter the book id unless
+        the user chooses to quit by entering 'q' or an eligible book
+        is found.
+
+        Args:
+            check_eligibility: a function to check if the book is eligible
+            for the selected operation.
+
+        Returns:
+            str: q if the user chooses to quit.
+            int: the ID of the book found.
+
+        """
         book_found = False
         while not book_found:
             input_id = input('--> Please enter the BookID here: ')
@@ -90,6 +191,19 @@ class BookFunction:
 
     @staticmethod
     def __ask_for_book_ids(check_eligibility):
+        """Prompts user to enter multiple book IDs
+
+        It will keeping calling __ask_for_book_id until it receives 'q'. For each
+        integer id it receives, it will append it to a list.
+
+        Args:
+            check_eligibility: a function to check if the book is eligible
+            for the selected operation.
+
+        Returns:
+            list: a list of book IDs.
+
+        """
         ended = False
         book_ids = []
         while not ended:
@@ -101,8 +215,15 @@ class BookFunction:
                 book_ids.append(book_id)
         return book_ids
 
-
-
     @staticmethod
     def __format_table(rows):
+        """Nicely format a table retrieved from the database using Tabulate
+
+        Args:
+            rows (dict): a dictionary representation of a table.
+
+        Returns:
+            str: a nicely formatted string of the table content.
+
+        """
         return tabulate(rows, headers='keys', tablefmt='simple')
