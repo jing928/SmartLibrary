@@ -35,7 +35,9 @@ class VoiceToText:
             return
         text = None
         try:
+            print('Processing...')
             text = self.__recognizer.recognize_google(self.__audio)
+            print('You just said "{0}".\n'.format(text))
         except speech.UnknownValueError:
             print('The voice cannot be recognized. Please try again later.')
         except speech.RequestError as error:
