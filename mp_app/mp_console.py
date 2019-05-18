@@ -116,13 +116,13 @@ class MpConsole:
             self.__book_function.borrow_book()
             return False
         if choice == 3:
-            self.__book_function.return_book()
+            self.run_return_menu()
             return False
         print('Logging out...\n')
         return True
 
     def run_search_menu(self):
-        """Runs the main menu
+        """Runs the search menu
 
         It shows the search menu for user to pick a search method.
 
@@ -148,3 +148,31 @@ class MpConsole:
             self.__book_function.search_for_book()
         elif choice == 2:
             self.__book_function.search_for_book_voice()
+
+    def run_return_menu(self):
+        """Runs the return menu
+
+        It shows the return menu for user to pick a return method.
+
+        Returns:
+            None
+
+        """
+        MenuHelper.print_menu(self.return_menu_items)
+        choice = MenuHelper.ask_for_input(len(self.return_menu_items) - 1)
+        self.__handle_return_choice(choice)
+
+    def __handle_return_choice(self, choice):
+        """Delegates user choice to corresponding method to handle
+
+        Args:
+            choice: the user's choice of a menu item.
+
+        Returns:
+            None
+
+        """
+        if choice == 1:
+            self.__book_function.return_book()
+        elif choice == 2:
+            self.__book_function.return_book_with_qr_code()
