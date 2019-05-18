@@ -23,6 +23,7 @@ Run the following to install all required dependencies:
 1. `sudo apt-get install portaudio19-dev python-all-dev python3-all-dev`
 1. `pip3 install pyaudio`
 1. `sudo apt-get install flac`
+1. `pip3 install pyzbar`
 
 
 
