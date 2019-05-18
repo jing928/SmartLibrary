@@ -49,6 +49,16 @@ class BookFunction:
         self.__search_helper(query)
 
     def search_for_book_voice(self):
+        """Helps user search for a book using voice
+
+        It calls the VoiceToText class to handle recording and transcribing
+        the voice and then uses the query to search and prints out the
+        results to stdout.
+
+        Returns:
+            None
+
+        """
         print('Starting microphone service...\n')
         voice_to_text = VoiceToText()
         query = voice_to_text.transcribe()
