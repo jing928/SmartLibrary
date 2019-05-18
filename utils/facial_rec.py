@@ -18,8 +18,11 @@ import time
 import cv2
 
 class FacialRecognition:
-    @staticmethod
-    def recognition():
+    def __init__(self):
+        self.__username = None
+
+    
+    def recognition(self):
         # construct the argument parser and parse the arguments
         ap = argparse.ArgumentParser()
         ap.add_argument("-e", "--encodings", default='encodings.pickle',
@@ -46,7 +49,8 @@ class FacialRecognition:
         time.sleep(2.0)
 
         # loop over frames from the video file stream
-        while True:
+        i = 5
+        while i > 0:
             # grab the frame from the threaded video stream
             frame = vs.read()
 
@@ -64,7 +68,7 @@ class FacialRecognition:
             encodings = face_recognition.face_encodings(rgb, boxes)
             names = []
 
-            # loop over the facial embeddings
+        # loop over the facial embeddings
             for encoding in encodings:
                 # attempt to match each face in the input image to our known
                 # encodings
@@ -93,11 +97,10 @@ class FacialRecognition:
 
                 # update the list of names
                 names.append(name)
-                return name
 
             # loop over the recognized faces
             for ((top, right, bottom, left), name) in zip(boxes, names):
-            # rescale the face coordinates
+                # rescale the face coordinates
                 top = int(top * r)
                 right = int(right * r)
                 bottom = int(bottom * r)
@@ -112,8 +115,11 @@ class FacialRecognition:
                 
                 # print to console, identified person
                 print('Person found: {}'.format(name)) 
+                i-=i
                 # Set a flag to sleep the cam for fixed time
                 time.sleep(3.0)
+                self.__username = name
+                break
 
 
             # if the video writer is None *AND* we are supposed to write
@@ -137,10 +143,15 @@ class FacialRecognition:
                 if key == ord("q"):
                     break
 
-        # do a bit of cleanup
+            # do a bit of cleanup
         cv2.destroyAllWindows()
         vs.stop()
 
-        # check to see if the video writer point needs to be released
+            # check to see if the video writer point needs to be released
         if writer is not None:
             writer.release()
+
+    
+    def get_username (self):
+        self.recognition()
+        return self.__username
