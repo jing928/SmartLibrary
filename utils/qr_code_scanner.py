@@ -45,6 +45,15 @@ class QrCodeScanner:
         return list(self.__found)
 
     def __scan_one_frame(self):
+        """Scan one frame from the video stream
+
+        It reads one frame and then decode the frame to find QR code.
+        If the code hasn't been added to the found set, then added.
+
+        Returns:
+            bool: True when found new QR code, False otherwise
+
+        """
         frame = self.__video.read()
         frame = imutils.resize(frame, width=400)
         found_new = False
