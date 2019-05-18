@@ -6,6 +6,7 @@ from datetime import date, timedelta
 from tabulate import tabulate
 from mp_app.data_access_cloud import DataAccessCloud
 from utils.calendar_access import CalendarAccess
+from utils.qr_code_scanner import QrCodeScanner
 from utils.voice_to_text import VoiceToText
 
 
@@ -113,11 +114,37 @@ class BookFunction:
         if not books_borrowed:
             print("You haven't borrowed any book. Nothing to return.")
             return
-        print('** Below are the book(s) you have borrowed: **\n')
-        print(BookFunction.__format_table(books_borrowed))
+        BookFunction.__print_borrowed_books(books_borrowed)
         book_ids = BookFunction.__ask_for_book_ids(self.__dao.check_returnability)
         for book_id in book_ids:
             self.__return_helper(book_id)
+
+    def return_book_with_qr_code(self):
+        """Helps user return a book by scanning a QR code of the book
+
+        If the user has unreturned books, it will print out the list of borrowed books,
+        otherwise return.
+
+        Then it will ask the user to scan the QR code of the book to return.
+
+        Returns:
+            None
+
+        """
+        books_borrowed = self.__dao.list_borrowed_books(self.__user_id)
+        if not books_borrowed:
+            print("You haven't borrowed any book. Nothing to return.")
+            return
+        BookFunction.__print_borrowed_books(books_borrowed)
+        book_ids = QrCodeScanner().scan()
+        for book_id in book_ids:
+            if self.__dao.check_returnability(book_id):
+                self.__return_helper(book_id)
+
+    @staticmethod
+    def __print_borrowed_books(books_borrowed):
+        print('** Below are the book(s) you have borrowed: **\n')
+        print(BookFunction.__format_table(books_borrowed))
 
     def __borrow_helper(self, book_id):
         """Facilitates borrowing a specific book
