@@ -24,7 +24,7 @@ args = vars(ap.parse_args())
 
 # use name as folder name
 name = args["name"]
-folder = './dataset/{}'.format(name)
+folder = '../dataset/{}'.format(name)
 
 # Create a new folder for the new name
 if not os.path.exists(folder):
@@ -37,7 +37,7 @@ cam.set(3, 640)
 # Set video height
 cam.set(4, 480)
 # Get the pre-built classifier that had been trained on 3 million faces
-face_detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+face_detector = cv2.CascadeClassifier('../haarcascade_frontalface_default.xml')
 # Create a window
 #cv2.namedWindow("Saving Images... (Press Escape to end)")
 
