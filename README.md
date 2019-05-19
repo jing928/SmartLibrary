@@ -24,6 +24,7 @@ Run the following to install all required dependencies:
 1. `pip3 install pyaudio`
 1. `sudo apt-get install flac`
 1. `pip3 install pyzbar`
+1. `pip3 install sphinx_rtd_theme`
 
 
 
