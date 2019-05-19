@@ -37,7 +37,7 @@ class QrCodeScanner:
         should_stop = False
         while not should_stop:
             print('Please hold the QR code in front of the camera...\n')
-            time.sleep(1)
+            time.sleep(2)
             found_new = self.__scan_one_frame()
             should_stop = not found_new
         print('Scan complete. Stopping video service...\n')
