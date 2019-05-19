@@ -58,7 +58,7 @@ class QrCodeScanner:
         frame = imutils.resize(frame, width=400)
         found_new = False
 
-        qr_codes = pyzbar.decode(frame, symbols=pyzbar.ZBarSymbol.QRCODE)
+        qr_codes = pyzbar.decode(frame)
         for qr_code in qr_codes:
             data = qr_code.data.decode('utf-8')
             data_type = qr_code.type
