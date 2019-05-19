@@ -3,8 +3,8 @@ This module provides functionality of user registration.
 """
 
 from rp_app.data_access_local import DataAccessLocal
-from rp_app.encryptor import Encryptor
-from rp_app.validator import Validator
+from utils.encryptor import Encryptor
+from utils.validator import Validator
 
 
 class UserRegistration:

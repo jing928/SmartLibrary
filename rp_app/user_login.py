@@ -4,7 +4,7 @@ This module provides functionality to handle login process.
 
 import socket
 from utils.file_access import FileAccess
-from rp_app.encryptor import Encryptor
+from utils.encryptor import Encryptor
 from rp_app.data_access_local import DataAccessLocal
 
 
