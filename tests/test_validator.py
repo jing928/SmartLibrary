@@ -1,5 +1,5 @@
 import unittest
-from rp_app.validator import Validator
+from utils.validator import Validator
 
 
 class TestValidator(unittest.TestCase):
