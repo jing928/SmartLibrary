@@ -13,6 +13,7 @@ Welcome to SmartLibrary's documentation!
    about
    rp_code
    mp_code
+   utils
 
 
 
