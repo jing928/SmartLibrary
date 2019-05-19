@@ -1,40 +1,40 @@
-        # USAGE
-        # With default parameters
-        #     python3 03_recognise.py
-        # OR specifying the encodings, screen resolution, output video and display
-        #     python3 03_recognise.py -e encodings.pickle -r 240 -o output/capture.avi -y 1
+# USAGE
+# With default parameters
+#     python3 03_recognise.py
+# OR specifying the encodings, screen resolution, output video and display
+#     python3 03_recognise.py -e encodings.pickle -r 240 -o output/capture.avi -y 1
 
-        ## Acknowledgement
-        ## This code is adapted from:
-        ## https://www.pyimagesearch.com/2018/06/18/face-recognition-with-opencv-python-and-deep-learning/
+## Acknowledgement
+## This code is adapted from:
+## https://www.pyimagesearch.com/2018/06/18/face-recognition-with-opencv-python-and-deep-learning/
 
-        # import the necessary packages
-from imutils.video import VideoStream
-import face_recognition
+# import the necessary packages
 import argparse
-import imutils
 import pickle
 import time
+import imutils
+from imutils.video import VideoStream
+import face_recognition
 import cv2
+
 
 class FacialRecognition:
     def __init__(self):
         self.__username = None
 
-    
     def recognition(self):
         # construct the argument parser and parse the arguments
         ap = argparse.ArgumentParser()
         ap.add_argument("-e", "--encodings", default='encodings.pickle',
-                help="path to serialized db of facial encodings")
+                        help="path to serialized db of facial encodings")
         ap.add_argument("-r", "--resolution", type=int, default=240,
-                help="Resolution of the video feed")
+                        help="Resolution of the video feed")
         ap.add_argument("-o", "--output", type=str,
-                help="path to output video")
+                        help="path to output video")
         ap.add_argument("-y", "--display", type=int, default=0,
-                help="whether or not to display output frame to screen")
+                        help="whether or not to display output frame to screen")
         ap.add_argument("-d", "--detection-method", type=str, default="hog",
-                help="face detection model to use: either `hog` or `cnn`")
+                        help="face detection model to use: either `hog` or `cnn`")
         args = vars(ap.parse_args())
 
         # load the known faces and embeddings
@@ -64,16 +64,16 @@ class FacialRecognition:
             # corresponding to each face in the input frame, then compute
             # the facial embeddings for each face
             boxes = face_recognition.face_locations(rgb,
-                    model=args["detection_method"])
+                                                    model=args["detection_method"])
             encodings = face_recognition.face_encodings(rgb, boxes)
             names = []
 
-        # loop over the facial embeddings
+            # loop over the facial embeddings
             for encoding in encodings:
                 # attempt to match each face in the input image to our known
                 # encodings
                 matches = face_recognition.compare_faces(data["encodings"],
-                        encoding)
+                                                         encoding)
                 name = "Unknown"
 
                 # check to see if we have found a match
@@ -107,26 +107,26 @@ class FacialRecognition:
                 left = int(left * r)
 
                 # draw the predicted face name on the image
-                #cv2.rectangle(frame, (left, top), (right, bottom),
-                    #(0, 255, 0), 2)
-                #y = top - 15 if top - 15 > 15 else top + 15
-                #cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
+                # cv2.rectangle(frame, (left, top), (right, bottom),
+                # (0, 255, 0), 2)
+                # y = top - 15 if top - 15 > 15 else top + 15
+                # cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
                 #	0.75, (0, 255, 0), 2)
-                
+
                 # print to console, identified person
-                print('Person found: {}'.format(name)) 
-                i-=i
+                print('Person found: {}'.format(name))
+                i -= i
                 # Set a flag to sleep the cam for fixed time
                 time.sleep(3.0)
                 self.__username = name
                 break
 
-
             # if the video writer is None *AND* we are supposed to write
             # the output video to disk initialize the writer
             if writer is None and args["output"] is not None:
                 fourcc = cv2.VideoWriter_fourcc(*"MJPG")
-                writer = cv2.VideoWriter(args["output"], fourcc, 20, (frame.shape[1], frame.shape[0]), True)
+                writer = cv2.VideoWriter(args["output"], fourcc, 20,
+                                         (frame.shape[1], frame.shape[0]), True)
 
             # if the writer is not None, write the frame with recognized
             # faces t odisk
@@ -147,11 +147,10 @@ class FacialRecognition:
         cv2.destroyAllWindows()
         vs.stop()
 
-            # check to see if the video writer point needs to be released
+        # check to see if the video writer point needs to be released
         if writer is not None:
             writer.release()
 
-    
-    def get_username (self):
+    def get_username(self):
         self.recognition()
         return self.__username
