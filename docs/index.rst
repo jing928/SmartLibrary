@@ -11,7 +11,8 @@ Welcome to SmartLibrary's documentation!
    :caption: Contents:
 
    about
-   code
+   rp_code
+   mp_code
 
 
 
