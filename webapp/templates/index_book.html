@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+    <head>
+        <title>Book</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>BookID</th>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Publish Date</th>
+            </tr>
+            {% for book in books %}
+                <tr>
+					<td>{{ book.BookID }}</td>
+                    <td>{{ book.ISBN }}</td>
+                    <td>{{ book.Title }}</td>
+                    <td>{{ book.Author }}</td>
+                    <td>{{ book.PublishedDate }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
