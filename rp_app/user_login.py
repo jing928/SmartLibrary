@@ -31,12 +31,11 @@ class UserLogin:
         choice = MenuHelper.ask_for_input(self.menu_end_number)
         UserLogin.__handle_choice(choice)
 
-
-@staticmethod
-def __handle_choice(choice):
-    if choice == 1:
-        login_with_password = LoginWithPassword()
-        login_with_password.start()
-    elif choice == 2:
-        login_with_face = LoginWithFace()
-        login_with_face.login()
+    @staticmethod
+    def __handle_choice(choice):
+        if choice == 1:
+            login_with_password = LoginWithPassword()
+            login_with_password.start()
+        elif choice == 2:
+            login_with_face = LoginWithFace()
+            login_with_face.login()
