@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Add Book{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Add book</h1>
+    
+  <form action="" method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.isbn.label }}<br>
+      {{ form.isbn(size=32) }}<br>
+      {% for error in form.isbn.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.title.label }}<br>
+      {{ form.title(size=32) }}<br>
+      {% for error in form.title.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.author.label }}<br>
+      {{ form.author(size=32) }}<br>
+      {% for error in form.author.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.pubdate.label }}<br>
+      {{ form.pubdate(size=32) }}<br>
+      {% for error in form.pubdate.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+  </form>
+</div>
+{% endblock %}

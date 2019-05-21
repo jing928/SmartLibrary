@@ -32,5 +32,4 @@ app.register_blueprint(api)
 app.register_blueprint(site)
 
 if __name__ == "__main__":
-    app.run(host = Config.HOST_IP)
-	# app.run(host = "192.168.1.7")
+    app.run(host = Config.HOST_IP, debug=True)

@@ -87,8 +87,8 @@ def addBook():
     pubDate = request.json["pubDate"]
 
     newBook = Book(ISBN = isbn,
-        Title = title, 
-        Author = author, 
+        Title = title,
+        Author = author,
         PublishedDate = pubDate)
 
     db.session.add(newBook)
