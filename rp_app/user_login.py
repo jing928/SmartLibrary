@@ -12,9 +12,9 @@ class UserLogin:
     def __init__(self):
         self.menu_items = [
             '*** Please choose login method ***',
-            'Username && Password:',
-            'Facial Recognition:',
-            'Quit Login'
+            'Manual:',
+            'Facial:',
+            'Go back:'
         ]
         self.menu_end_number = len(self.menu_items) - 1
 
