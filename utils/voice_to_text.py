@@ -42,7 +42,8 @@ class VoiceToText:
         """
         with speech.Microphone(device_index=self.__device_id) as source:
             subprocess.run('clear')
-            self.__recognizer.adjust_for_ambient_noise(source)
+            print('Adjusting ambient noise...\n')
+            self.__recognizer.adjust_for_ambient_noise(source, duration=1.5)
             print('Please say your search query out loud...\n')
             try:
                 self.__audio = self.__recognizer.listen(source, timeout=2)
