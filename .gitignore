@@ -121,3 +121,6 @@ venv.bak/
 # Google API
 credentials.json
 token.pickle
+
+# Audio Config
+.asoundrc
