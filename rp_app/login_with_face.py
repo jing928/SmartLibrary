@@ -16,7 +16,7 @@ class LoginWithFace:
         __username (str, None): username stored in encodings.pickle
         __server_ip = ip_dict["ip"]: ip address of master pi
         __dao = DataAccessLocal(): data access object to the local database.
-        face_rec = FacialRecognition() facial recognition object 
+        face_rec = FacialRecognition() facial recognition object
     """
 
     def __init__(self):
