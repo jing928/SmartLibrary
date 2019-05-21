@@ -27,21 +27,16 @@ class UserLogin:
         Returns:
             None
         """
-        should_quit = False
-        while not should_quit:
-            MenuHelper.print_menu(self.menu_items)
-            choice = MenuHelper.ask_for_input(self.menu_end_number)
-            should_quit = UserLogin.__handle_choice(choice)
+        MenuHelper.print_menu(self.menu_items)
+        choice = MenuHelper.ask_for_input(self.menu_end_number)
+        UserLogin.__handle_choice(choice)
 
-    @staticmethod
-    def __handle_choice(choice):
-        if choice == 1:
-            login_with_password = LoginWithPassword()
-            login_with_password.start()
-            return False
-        if choice == 2:
-            login_with_face = LoginWithFace()
-            login_with_face.login()
-            return False
-        print('Quitting program...\n')
-        return True
+
+@staticmethod
+def __handle_choice(choice):
+    if choice == 1:
+        login_with_password = LoginWithPassword()
+        login_with_password.start()
+    elif choice == 2:
+        login_with_face = LoginWithFace()
+        login_with_face.login()
