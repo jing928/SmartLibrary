@@ -2,7 +2,6 @@
 This module has the LoginWithFace class to provide login function with facial recognition
 """
 
-
 from utils.facial_rec import FacialRecognition
 from utils.file_access import FileAccess
 from utils.login_tool import LoginTool
