@@ -49,8 +49,8 @@ class FacialRecognition:
         time.sleep(2.0)
 
         # loop over frames from the video file stream
-        i = 5
-        while i > 0:
+        
+        for i in(0,5):
             # grab the frame from the threaded video stream
             frame = vs.read()
 
@@ -115,7 +115,7 @@ class FacialRecognition:
 
                 # print to console, identified person
                 print('Person found: {}'.format(name))
-                i -= i
+                
                 # Set a flag to sleep the cam for fixed time
                 time.sleep(3.0)
                 self.__username = name

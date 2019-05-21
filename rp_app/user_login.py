@@ -19,6 +19,14 @@ class UserLogin:
         self.menu_end_number = len(self.menu_items) - 1
 
     def start(self):
+        """
+        Starts the user login process
+
+        It will print menu include two login options, then user can make choice on login method.
+
+        Returns:
+            None
+        """
         should_quit = False
         while not should_quit:
             MenuHelper.print_menu(self.menu_items)
