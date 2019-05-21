@@ -37,8 +37,7 @@ class VoiceToText:
         It prompts the user to speak and then records and saves the audio.
 
         Returns:
-            AudioData: when a recording is successful.
-            None: when there is an error.
+            None
 
         """
         with speech.Microphone(device_index=self.__device_id) as source:
@@ -47,10 +46,9 @@ class VoiceToText:
             print('Please say your search query out loud...\n')
             try:
                 self.__audio = self.__recognizer.listen(source, timeout=2)
-                return self.__audio
             except speech.WaitTimeoutError:
                 print('Time out! Please try again.')
-                return None
+                self.__audio = None
 
     def transcribe(self):
         """Transcribe the saved audio to text using Google Speech-to-Text API
