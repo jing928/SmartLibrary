@@ -98,7 +98,7 @@ class UserRegistration:
             password = input('--> Enter the password here\n'
                              '(At least one letter and one number, minimum 6 characters): ')
             password = password.strip()
-            is_valid = Validator.validate_username(password)
+            is_valid = Validator.validate_password(password)
             if not is_valid:
                 print('Password entered does not meet the requirements...\n')
         password = Encryptor.encrypt(password)
