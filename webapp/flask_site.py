@@ -39,18 +39,16 @@ def addbook():
             addbookform.title.data, addbookform.author.data, addbookform.pubdate.data))
 
         url = 'http://' + Config.HOST_IP + ':'  + Config.PORT
+        headers = {"Content-type": "application/json"}
 
         # data to be sent to api 
-        # data = {'isbn': addbookform.isbn.data, 
-        #         'title': addbookform.title.data, 
-        #         'author': addbookform.author.data, 
-        #         'pubDate': addbookform.pubdate.data} 
-        data = {'isbn': 'addbookform.isbn.data', 
-        'title': 'King', 
-        'author': 'James', 
-        'pubDate': '2018-01-05'} 
+        data = {'isbn': addbookform.isbn.data, 
+                'title': addbookform.title.data, 
+                'author': addbookform.author.data, 
+                'pubDate': addbookform.pubdate.data} 
 
-        response = requests.post(url + '/book', data=data)
+        response = requests.post(url + '/book', data=json.dumps(data), headers=headers)
+
 
         # data = json.loads(response.text)
         # print('response: ' + data)
