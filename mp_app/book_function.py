@@ -6,6 +6,7 @@ from datetime import date, timedelta
 from tabulate import tabulate
 from mp_app.data_access_cloud import DataAccessCloud
 from utils.calendar_access import CalendarAccess
+from utils.voice_to_text import VoiceToText
 
 
 class BookFunction:
@@ -45,6 +46,27 @@ class BookFunction:
         """
         query = input('You can search by title, ISBN, or author.\n'
                       '--> Please enter your search keywords here: ')
+        self.__search_helper(query)
+
+    def search_for_book_voice(self):
+        """Helps user search for a book using voice
+
+        It calls the VoiceToText class to handle recording and transcribing
+        the voice and then uses the query to search and prints out the
+        results to stdout.
+
+        Returns:
+            None
+
+        """
+        print('Starting microphone service...\n')
+        voice_to_text = VoiceToText()
+        query = voice_to_text.transcribe()
+        if query is None:
+            return
+        self.__search_helper(query)
+
+    def __search_helper(self, query):
         result = self.__dao.search(query)
         if not result:
             print('Sorry...there is no book matching the keywords.\n')

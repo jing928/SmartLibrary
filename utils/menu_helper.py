@@ -24,8 +24,8 @@ class MenuHelper:
                 print(item)
                 print('\n')
             else:
-                menu_item = "{item:<9s} {choice:>1d}".format(item=item,
-                                                             choice=index)
+                menu_item = "{item:<10s} {choice:>1d}".format(item=item,
+                                                              choice=index)
                 print(menu_item)
 
     @staticmethod

@@ -21,7 +21,7 @@ class RpConsole:
             '*** Welcome to the Smart Library Management System! ***',
             'Register:',
             'Login:',
-            'Quit'
+            'Quit:'
         ]
         self.menu_end_number = len(self.menu_items) - 1
 
