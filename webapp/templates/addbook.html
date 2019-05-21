@@ -2,9 +2,9 @@
 {% block title %}Add Book{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="page-header">
   <h1>Add book</h1>
-    
+</div>
   <form action="" method="POST" novalidate>
     {{ form.hidden_tag() }}
     <p>
@@ -37,5 +37,4 @@
     </p>
     <p>{{ form.submit() }}</p>
   </form>
-</div>
 {% endblock %}

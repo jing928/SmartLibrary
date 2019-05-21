@@ -8,7 +8,7 @@ from forms import LoginForm, AddBookForm
 
 site = Blueprint("site", __name__)
 
-# Client webpage routing
+# Web site page routing
 @site.route('/')
 def home():
     return redirect('/login')
@@ -18,6 +18,7 @@ def index():
     addbookform = AddBookForm()
     # Check if the user already logged in
     if(session.get('username') is None):
+        flash('Please log in first!')
         return redirect('/login')
    
     url = 'http://' + Config.HOST_IP + ':'  + Config.PORT
@@ -45,38 +46,55 @@ def addbook():
         data = {'isbn': addbookform.isbn.data, 
                 'title': addbookform.title.data, 
                 'author': addbookform.author.data, 
-                'pubDate': addbookform.pubdate.data} 
+                'pubDate': addbookform.pubdate.data}
 
         response = requests.post(url + '/book', data=json.dumps(data), headers=headers)
-
 
         # data = json.loads(response.text)
         # print('response: ' + data)
         flash('Book added successfully')
-        
         return redirect('/index')
 
     return render_template("addbook.html", form=addbookform)
+
+
+@site.route("/book/<id>", methods = ['POST'])
+def deleteBook(id):
+    url = 'http://' + Config.HOST_IP + ':'  + Config.PORT
+
+    response = requests.delete(url + '/book/' + id)
+    data = json.loads(response.text)
+
+    flash('Book "{}" deleted successfully'.format(data['Title']))
+    return redirect('/index')
+
 
 @site.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        flash('Login requested for user {}, pass {}, remember_me={}'.format(
-            form.username.data, form.password.data, form.remember_me.data))
         if form.username.data == Config.USER['username'] and form.password.data == Config.USER['password']:
             session["username"] = form.username.data
             return redirect('/index')
     return render_template('login.html', title='Sign In', form=form)
 
-
 @site.route('/logout', methods=['GET', 'POST'])
 def logout():
     # remove the username from the session if it is there
-   session.pop('username', None)
-    # return redirect('url_for(''index'))
-   return redirect('/login')
+    session.pop('username', None)
+    return redirect(('/login'))
 
-# @site.route('/index', methods=['GET'])
-# def index():
-#     return render_template('index.html', title='Home')
+
+@site.route('/lending')
+def render_lending():
+    if(session.get('username') is None):
+        flash('Please log in first!')
+        return redirect('/login')
+    return render_template('lending.html', title='Lending', url = Config.LEND_URL)
+
+@site.route('/return')
+def render_return():
+    if(session.get('username') is None):
+        flash('Please log in first!')
+        return redirect('/login')
+    return render_template('return.html', title='Return', url = Config.RETURN_URL)

@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, request, jsonify, render_template
+from flask import Flask, Blueprint, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import os, requests, json
@@ -98,7 +98,7 @@ def addBook():
 
 # Endpoint to delete a book.
 @api.route("/book/<id>", methods = ["DELETE"])
-def bookDelete(id):
+def deleteBook(id):
     book = Book.query.get(id)
     # Add condition required?
     db.session.delete(book)
@@ -108,7 +108,8 @@ def bookDelete(id):
 
 
 
-# API endpoints for user CRUD operation
+
+### API endpoints for user CRUD operation ###
 # Endpoint to show all LmsUsers.
 @api.route("/person", methods = ["GET"])
 def getPeople():

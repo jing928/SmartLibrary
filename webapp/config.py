@@ -12,9 +12,14 @@ class Config(object):
         'username': 'charles',
         'password': 'abc123'
     }
+
     # DATABASE_CONFIG = {
     # 'HOST': '35.189.0.166'
     # 'USER': 'root'
     # 'PASSWORD': 'password'
     # 'DATABASE': 'SmartLibrary'
     # }
+
+    LEND_URL = 'https://datastudio.google.com/embed/reporting/1ni-4ZoFqrTgkxDg1SVKgw7r2gUkvQIgh/page/yYBq'
+
+    RETURN_URL = 'https://datastudio.google.com/embed/reporting/1ni-4ZoFqrTgkxDg1SVKgw7r2gUkvQIgh/page/yYBq'
