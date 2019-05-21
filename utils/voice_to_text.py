@@ -46,7 +46,7 @@ class VoiceToText:
             self.__recognizer.adjust_for_ambient_noise(source, duration=1.5)
             print('Please say your search query out loud...\n')
             try:
-                self.__audio = self.__recognizer.listen(source, timeout=2)
+                self.__audio = self.__recognizer.listen(source, timeout=2, phrase_time_limit=2.5)
             except speech.WaitTimeoutError:
                 print('Time out! Please try again.')
                 self.__audio = None
