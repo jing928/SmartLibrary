@@ -1,5 +1,5 @@
 import unittest
-from rp_app.encryptor import Encryptor
+from utils.encryptor import Encryptor
 
 
 class TestEncryptor(unittest.TestCase):
