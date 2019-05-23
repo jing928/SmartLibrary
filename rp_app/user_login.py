@@ -33,6 +33,15 @@ class UserLogin:
 
     @staticmethod
     def __handle_choice(choice):
+        """
+        this static method intake user's input and implement relevent methods
+
+        Args:
+            choice: the integer input by user after menu shows.
+
+        Returns:
+            None
+        """
         if choice == 1:
             login_with_password = LoginWithPassword()
             login_with_password.start()

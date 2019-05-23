@@ -19,6 +19,15 @@ import cv2
 
 
 class FacialRecognition:
+    """
+    The FacialRecognition class provides functions of matching face with encodings.pickle
+    encoding.pickles stored features of different images of faces whic stored in dataset
+    All images were captured and encoded in advance
+
+    Attributes:
+        __username (str, None): username stored in encodings.pickle
+        
+    """
     def __init__(self):
         self.__username = None
 

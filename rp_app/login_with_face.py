@@ -27,6 +27,13 @@ class LoginWithFace:
         self.face_rec = FacialRecognition()
 
     def login(self):
+        """
+        This method will pass username to Mp if face matched
+        This method will return none if face not matched
+
+        Returns:
+            None 
+        """
         self.__username = self.face_rec.get_username()
         print(self.__username)
         username_exists = self.__dao.check_if_user_exists(self.__username)
