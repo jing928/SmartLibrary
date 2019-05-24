@@ -127,9 +127,25 @@ of this project.
 
 ## Usage
 
-blah blah
+### Reception Pi
 
+To start the Reception Pi console program, simply run the following on one of the Pi's:
+```bash
+python3 reception_pi_app.py
+```
 
+Then the main menu will display in the terminal.
+
+### Master Pi
+
+On the other Pi, run the following:
+```bash
+python3 master_pi_app.py
+```
+
+Then this will start the Master Pi console and the Master Pi will continue listening to signals
+sent by the Reception Pi. Whenever a user logs in on the Reception Pi, the main menu of the 
+Master Pi will be activated.
 
 ## Documentation
 
