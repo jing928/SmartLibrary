@@ -8,6 +8,14 @@ from rp_app.login_with_face import LoginWithFace
 
 
 class UserLogin:
+    """
+    UserLogin class handles user login process. which has two options
+    first one is login with input username and password
+    second one is login with face recognition
+
+    Attributes:
+        menu_items: text contains menu options
+    """
 
     def __init__(self):
         self.menu_items = [
