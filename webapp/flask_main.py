@@ -8,25 +8,31 @@ from flask_api import api, db
 from flask_site import site
 from config import Config
 
-app = Flask(__name__)
-bootstrap = Bootstrap(app)
-app.config.from_object(Config)
+class RunFlask:
+    def __init__(self):
+        self.app = Flask(__name__)
+        self.bootstrap = Bootstrap(self.app)
+        self.app.config.from_object(Config)
+        # basedir = os.path.abspath(os.path.dirname(__file__))
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+        # Parameter to connect to GCP SQL DB
+        self.HOST = Config.DATABASE_CONFIG['HOST']
+        self.USER = Config.DATABASE_CONFIG['USER']
+        self.PASSWORD = Config.DATABASE_CONFIG['PASSWORD']
+        self.DATABASE = Config.DATABASE_CONFIG['DATABASE']
 
-# Parameter to connect to GCP SQL DB
-HOST = "35.189.0.166"
-USER = "root"
-PASSWORD = "password"
-DATABASE = "SmartLibrary"
+        self.app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://{}:{}@{}/{}".format(
+            self.USER, self.PASSWORD, self.HOST, self.DATABASE)
+        self.app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://{}:{}@{}/{}".format(USER, PASSWORD, HOST, DATABASE)
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+        db.init_app(self.app)
 
-db.init_app(app)
+        self.app.register_blueprint(api)
+        self.app.register_blueprint(site)
 
-app.register_blueprint(api)
-app.register_blueprint(site)
+    def run(self):
+        self.app.run(host=Config.HOST_IP, debug=True)
 
 if __name__ == "__main__":
-    app.run(host=Config.HOST_IP, debug=True)
+    flask = RunFlask()
+    flask.run()

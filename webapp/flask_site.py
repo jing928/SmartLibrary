@@ -90,15 +90,8 @@ def logout():
 
 @site.route('/lending')
 def render_lending():
-    if session.get('username' is None):
+    # Check if the user already logged in
+    if session.get('username') is None:
         flash('Please log in first!')
         return redirect('/login')
     return render_template('lending.html', title='Lending', url=Config.LEND_URL)
-
-
-@site.route('/return')
-def render_return():
-    if session.get('username' is None):
-        flash('Please log in first!')
-        return redirect('/login')
-    return render_template('return.html', title='Return', url=Config.RETURN_URL)
