@@ -3,7 +3,7 @@ import sqlite3 as lite
 from rp_app.data_access_local import DataAccessLocal
 
 
-class TestDataAccess(unittest.TestCase):
+class TestDataAccessLocal(unittest.TestCase):
 
     def setUp(self):
         self.connection = lite.connect(':memory:',
