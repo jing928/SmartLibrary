@@ -1,0 +1,701 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Master Pi &mdash; SmartLibrary 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Utilities" href="utils.html" />
+    <link rel="prev" title="Reception Pi" href="rp_code.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SmartLibrary
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rp_code.html">Reception Pi</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Master Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SmartLibrary</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Master Pi</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/mp_code.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-master_pi_app">
+<span id="master-pi"></span><h1>Master Pi<a class="headerlink" href="#module-master_pi_app" title="Permalink to this headline">¶</a></h1>
+<p>This module provides program entry point for the Master Pi.</p>
+<dl class="class">
+<dt id="master_pi_app.MasterPiApp">
+<em class="property">class </em><code class="descclassname">master_pi_app.</code><code class="descname">MasterPiApp</code><a class="headerlink" href="#master_pi_app.MasterPiApp" title="Permalink to this definition">¶</a></dt>
+<dd><p>The MasterPiApp class provides the method to start the Master Pi program.</p>
+<dl class="staticmethod">
+<dt id="master_pi_app.MasterPiApp.run">
+<em class="property">static </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#master_pi_app.MasterPiApp.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fires up the Master Pi console.</p>
+<p>It starts the console UI of the Master Pi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-mp_app.mp_console"></span><p>This module provides functions to run Master Pi Console Menu.</p>
+<dl class="class">
+<dt id="mp_app.mp_console.MpConsole">
+<em class="property">class </em><code class="descclassname">mp_app.mp_console.</code><code class="descname">MpConsole</code><a class="headerlink" href="#mp_app.mp_console.MpConsole" title="Permalink to this definition">¶</a></dt>
+<dd><p>MpConsole class handles the Master Pi Console Menu function.</p>
+<dl class="attribute">
+<dt id="mp_app.mp_console.MpConsole.MSG">
+<code class="descname">MSG</code><a class="headerlink" href="#mp_app.mp_console.MpConsole.MSG" title="Permalink to this definition">¶</a></dt>
+<dd><p>a default reply message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mp_app.mp_console.MpConsole.menu_items">
+<code class="descname">menu_items</code><a class="headerlink" href="#mp_app.mp_console.MpConsole.menu_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>a list of menu items to print.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mp_app.mp_console.MpConsole.search_menu_items">
+<code class="descname">search_menu_items</code><a class="headerlink" href="#mp_app.mp_console.MpConsole.search_menu_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>a list of search menu items to print</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mp_app.mp_console.MpConsole.return_menu_items">
+<code class="descname">return_menu_items</code><a class="headerlink" href="#mp_app.mp_console.MpConsole.return_menu_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>a list of return menu items to print</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mp_app.mp_console.MpConsole.__username">
+<code class="descname">__username</code><a class="headerlink" href="#mp_app.mp_console.MpConsole.__username" title="Permalink to this definition">¶</a></dt>
+<dd><p>the username of the current logged in user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str, None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mp_app.mp_console.MpConsole.___book_function">
+<code class="descname">___book_function</code><a class="headerlink" href="#mp_app.mp_console.MpConsole.___book_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>the BookFunction object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mp_app.book_function.BookFunction" title="mp_app.book_function.BookFunction">BookFunction</a>, None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.mp_console.MpConsole.run_menu">
+<code class="descname">run_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.mp_console.MpConsole.run_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the main menu</p>
+<p>It will keep showing the menu and asking for user selection until
+the user logs out.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.mp_console.MpConsole.run_return_menu">
+<code class="descname">run_return_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.mp_console.MpConsole.run_return_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the return menu</p>
+<p>It shows the return menu for user to pick a return method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.mp_console.MpConsole.run_search_menu">
+<code class="descname">run_search_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.mp_console.MpConsole.run_search_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the search menu</p>
+<p>It shows the search menu for user to pick a search method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.mp_console.MpConsole.start">
+<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.mp_console.MpConsole.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receives username and starts the Master Pi program</p>
+<p>It will continue listening to port 65000 from all IP addresses and
+when message received, it will create a new BookFunction instance
+and run the main menu for the user.</p>
+<p>Once the user logs out, it will go back to listening for new messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-mp_app.book_function"></span><p>This module provides functionality for search, borrow, and return a book.</p>
+<dl class="class">
+<dt id="mp_app.book_function.BookFunction">
+<em class="property">class </em><code class="descclassname">mp_app.book_function.</code><code class="descname">BookFunction</code><span class="sig-paren">(</span><em>username</em><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.book_function.BookFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>BookFunction class handles search, borrow, and return a book for a specific user.</p>
+<dl class="attribute">
+<dt id="mp_app.book_function.BookFunction.__username">
+<code class="descname">__username</code><a class="headerlink" href="#mp_app.book_function.BookFunction.__username" title="Permalink to this definition">¶</a></dt>
+<dd><p>the username of the current user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mp_app.book_function.BookFunction.__dao">
+<code class="descname">__dao</code><a class="headerlink" href="#mp_app.book_function.BookFunction.__dao" title="Permalink to this definition">¶</a></dt>
+<dd><p>a data access object to communicate with the cloud database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mp_app.data_access_cloud.DataAccessCloud" title="mp_app.data_access_cloud.DataAccessCloud">DataAccessCloud</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mp_app.book_function.BookFunction.__cal">
+<code class="descname">__cal</code><a class="headerlink" href="#mp_app.book_function.BookFunction.__cal" title="Permalink to this definition">¶</a></dt>
+<dd><p>a calendar access object to communicate with Google Calendar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="utils.html#utils.calendar_access.CalendarAccess" title="utils.calendar_access.CalendarAccess">CalendarAccess</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mp_app.book_function.BookFunction.__user_id">
+<code class="descname">__user_id</code><a class="headerlink" href="#mp_app.book_function.BookFunction.__user_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>the internal ID of the current user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mp_app.book_function.BookFunction.__search_result">
+<code class="descname">__search_result</code><a class="headerlink" href="#mp_app.book_function.BookFunction.__search_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>saves the last search result made by the user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str, None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.book_function.BookFunction.borrow_book">
+<code class="descname">borrow_book</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.book_function.BookFunction.borrow_book" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helps user borrow a book</p>
+<p>If the user hasn’t searched, it will ask the user to search first and return.
+If the user has searched, it will print the previous search results and asks
+user to make a selection of one or more books to borrow.</p>
+<p>Then it will call __borrow_helper to process borrow for each of the selected books.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.book_function.BookFunction.return_book">
+<code class="descname">return_book</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.book_function.BookFunction.return_book" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helps user return a book</p>
+<p>If the user has unreturned books, it will print out the list of borrowed books,
+otherwise return.</p>
+<p>Then it will ask the user to select one or more books to return and call __return_helper
+method to process each of the selected books.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.book_function.BookFunction.return_book_with_qr_code">
+<code class="descname">return_book_with_qr_code</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.book_function.BookFunction.return_book_with_qr_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helps user return a book by scanning a QR code of the book</p>
+<p>If the user has unreturned books, it will print out the list of borrowed books,
+otherwise return.</p>
+<p>Then it will ask the user to scan the QR code of the book to return.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.book_function.BookFunction.search_for_book">
+<code class="descname">search_for_book</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.book_function.BookFunction.search_for_book" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helps user search for a book to borrow</p>
+<p>It first asks user for the search query and then calls the data
+access object to handle the search.</p>
+<p>If nothing matches the query, returns, otherwise, format, save,
+and print the results to stdout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.book_function.BookFunction.search_for_book_voice">
+<code class="descname">search_for_book_voice</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.book_function.BookFunction.search_for_book_voice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helps user search for a book using voice</p>
+<p>It calls the VoiceToText class to handle recording and transcribing
+the voice and then uses the query to search and prints out the
+results to stdout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-mp_app.data_access_cloud"></span><p>This module provides functions to interact with cloud database.</p>
+<dl class="class">
+<dt id="mp_app.data_access_cloud.DataAccessCloud">
+<em class="property">class </em><code class="descclassname">mp_app.data_access_cloud.</code><code class="descname">DataAccessCloud</code><span class="sig-paren">(</span><em>connection=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.data_access_cloud.DataAccessCloud" title="Permalink to this definition">¶</a></dt>
+<dd><p>DataAccessCloud class provides methods to handle common SQL operations.</p>
+<dl class="method">
+<dt id="mp_app.data_access_cloud.DataAccessCloud.borrow_book">
+<code class="descname">borrow_book</code><span class="sig-paren">(</span><em>book_id</em>, <em>user_id</em>, <em>borrow_date</em>, <em>event_id</em><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.data_access_cloud.DataAccessCloud.borrow_book" title="Permalink to this definition">¶</a></dt>
+<dd><p>Borrow a book</p>
+<p>It sets the book status to unavailable and creates a new book borrowed
+record.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>book_id</strong> – the ID of the book to be borrowed.</p></li>
+<li><p><strong>user_id</strong> – the ID of the borrower.</p></li>
+<li><p><strong>borrow_date</strong> – the date of the borrow.</p></li>
+<li><p><strong>event_id</strong> – the ID of the calendar event on the due date.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.data_access_cloud.DataAccessCloud.check_availability">
+<code class="descname">check_availability</code><span class="sig-paren">(</span><em>book_id</em><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.data_access_cloud.DataAccessCloud.check_availability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a book is available</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>book_id</strong> – the ID of the book to be checked.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the status is available, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.data_access_cloud.DataAccessCloud.check_returnability">
+<code class="descname">check_returnability</code><span class="sig-paren">(</span><em>book_id</em><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.data_access_cloud.DataAccessCloud.check_returnability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a book can be returned</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>book_id</strong> – the ID of the book to be checked.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the status is unavailable, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.data_access_cloud.DataAccessCloud.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.data_access_cloud.DataAccessCloud.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the connection</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.data_access_cloud.DataAccessCloud.get_book_borrowed_id">
+<code class="descname">get_book_borrowed_id</code><span class="sig-paren">(</span><em>book_id</em>, <em>user_id</em><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.data_access_cloud.DataAccessCloud.get_book_borrowed_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the ID of the book borrowed record</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>book_id</strong> – the ID of the book borrowed.</p></li>
+<li><p><strong>user_id</strong> – the ID of the borrower.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the ID of the book borrowed record.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.data_access_cloud.DataAccessCloud.get_book_details">
+<code class="descname">get_book_details</code><span class="sig-paren">(</span><em>book_id</em><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.data_access_cloud.DataAccessCloud.get_book_details" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get details of a book</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>book_id</strong> – the ID of the book.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dictionary of the book details</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.data_access_cloud.DataAccessCloud.get_calendar_event_id">
+<code class="descname">get_calendar_event_id</code><span class="sig-paren">(</span><em>book_borrowed_id</em><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.data_access_cloud.DataAccessCloud.get_calendar_event_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the calendar event ID</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>book_borrowed_id</strong> – the ID of the book borrowed record.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>calendar event ID</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.data_access_cloud.DataAccessCloud.get_user_id">
+<code class="descname">get_user_id</code><span class="sig-paren">(</span><em>username</em><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.data_access_cloud.DataAccessCloud.get_user_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get user ID with a given username</p>
+<p>It finds and returns the primary key of a username</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>username</strong> – the username whose ID is wanted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the user ID</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.data_access_cloud.DataAccessCloud.list_borrowed_books">
+<code class="descname">list_borrowed_books</code><span class="sig-paren">(</span><em>user_id</em><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.data_access_cloud.DataAccessCloud.list_borrowed_books" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all borrowed books of a user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>user_id</strong> – the ID of the borrower.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a table of books borrowed.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.data_access_cloud.DataAccessCloud.return_book">
+<code class="descname">return_book</code><span class="sig-paren">(</span><em>book_id</em>, <em>user_id</em>, <em>return_date</em><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.data_access_cloud.DataAccessCloud.return_book" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a book</p>
+<p>It sets the book status to available and updates the corresponding
+book borrowed record to have a status of returned and null event id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>book_id</strong> – the ID of the book to be returned.</p></li>
+<li><p><strong>user_id</strong> – the ID of the borrower.</p></li>
+<li><p><strong>return_date</strong> – the date of the return.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_app.data_access_cloud.DataAccessCloud.search">
+<code class="descname">search</code><span class="sig-paren">(</span><em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.data_access_cloud.DataAccessCloud.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for a book with a given query</p>
+<p>It will search all three columns - ISBN, title, and Author.
+Any match will count as found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query</strong> – a string of search text</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a table of found books.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mp_app.data_access_cloud.OrderedDictCursor">
+<em class="property">class </em><code class="descclassname">mp_app.data_access_cloud.</code><code class="descname">OrderedDictCursor</code><span class="sig-paren">(</span><em>connection</em><span class="sig-paren">)</span><a class="headerlink" href="#mp_app.data_access_cloud.OrderedDictCursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>OrderedDicCursor class uses mysql.cursors.DictCursorMixin to implement a
+new type of cursor to allow returned dictionary has the same column order
+as the database schema.</p>
+<dl class="attribute">
+<dt id="mp_app.data_access_cloud.OrderedDictCursor.dict_type">
+<code class="descname">dict_type</code><a class="headerlink" href="#mp_app.data_access_cloud.OrderedDictCursor.dict_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="utils.html" class="btn btn-neutral float-right" title="Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="rp_code.html" class="btn btn-neutral float-left" title="Reception Pi" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, IoT Group 5
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

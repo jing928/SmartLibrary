@@ -1,0 +1,589 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Utilities &mdash; SmartLibrary 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Master Pi" href="mp_code.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SmartLibrary
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rp_code.html">Reception Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mp_code.html">Master Pi</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utilities</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SmartLibrary</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Utilities</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-utils">
+<span id="utilities"></span><h1>Utilities<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h1>
+<p>A package that contains common utility functions for the entire project.</p>
+<span class="target" id="module-utils.file_access"></span><p>This module provides functions to access JSON files.</p>
+<dl class="class">
+<dt id="utils.file_access.FileAccess">
+<em class="property">class </em><code class="descclassname">utils.file_access.</code><code class="descname">FileAccess</code><a class="headerlink" href="#utils.file_access.FileAccess" title="Permalink to this definition">¶</a></dt>
+<dd><p>FileAccess class provides methods to read JSON config files.</p>
+<dl class="staticmethod">
+<dt id="utils.file_access.FileAccess.get_db_config">
+<em class="property">static </em><code class="descname">get_db_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.file_access.FileAccess.get_db_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets configuration of the cloud database.</p>
+<p>A wrapper method to read database configurations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dictionary representation of the database configurations.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="utils.file_access.FileAccess.get_ip_config">
+<em class="property">static </em><code class="descname">get_ip_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.file_access.FileAccess.get_ip_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets IP address of the server.</p>
+<p>A wrapper method to read IP address of the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dictionary representation of the database configurations.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="utils.file_access.FileAccess.json_to_dict">
+<em class="property">static </em><code class="descname">json_to_dict</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.file_access.FileAccess.json_to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads JSON file and converts it to a Python dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – the path of the JSON file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dictionary representation of the JSON file if read in correctly, None otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-utils.menu_helper"></span><p>This module provides functions to help with console UI menus.</p>
+<dl class="class">
+<dt id="utils.menu_helper.MenuHelper">
+<em class="property">class </em><code class="descclassname">utils.menu_helper.</code><code class="descname">MenuHelper</code><a class="headerlink" href="#utils.menu_helper.MenuHelper" title="Permalink to this definition">¶</a></dt>
+<dd><p>MenuHelper class provides common methods to help with building menus.</p>
+<dl class="staticmethod">
+<dt id="utils.menu_helper.MenuHelper.ask_for_input">
+<em class="property">static </em><code class="descname">ask_for_input</code><span class="sig-paren">(</span><em>menu_end_number</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.menu_helper.MenuHelper.ask_for_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asks user for menu choices.</p>
+<p>It asks, validates and returns the user entered choices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>menu_end_number</strong> – The choice number that corresponds to the last menu item.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the choice the user enters.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="utils.menu_helper.MenuHelper.print_menu">
+<em class="property">static </em><code class="descname">print_menu</code><span class="sig-paren">(</span><em>menu_items</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.menu_helper.MenuHelper.print_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a menu with given items.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>menu_items</strong> – a list items to be used as menu items.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>no return value as it prints menu to the stdout.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-utils.validator"></span><p>This module contains the validator class that’s used to validate user inputs.</p>
+<dl class="class">
+<dt id="utils.validator.Validator">
+<em class="property">class </em><code class="descclassname">utils.validator.</code><code class="descname">Validator</code><a class="headerlink" href="#utils.validator.Validator" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Validator class contains static methods to validate various user inputs.</p>
+<dl class="staticmethod">
+<dt id="utils.validator.Validator.validate_fullname">
+<em class="property">static </em><code class="descname">validate_fullname</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.validator.Validator.validate_fullname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates user input of the full name of the user.</p>
+<p>It compares the user input string with the preset regular expression
+that represents the correct format of the full name - first name and last name
+with one space in between, only letters are allowed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>string</strong> – user input of the full name.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the user input matches the regular expression, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="utils.validator.Validator.validate_password">
+<em class="property">static </em><code class="descname">validate_password</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.validator.Validator.validate_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate user input of the password.</p>
+<p>It compares the user input string with the preset regular expression
+that represents the correct format of the password - minimum of 6
+alphanumeric characters, with at least one letter and one number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>string</strong> – user input of the password.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the user input matches the regular expression, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="utils.validator.Validator.validate_username">
+<em class="property">static </em><code class="descname">validate_username</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.validator.Validator.validate_username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates user input of the username.</p>
+<p>It compares the user input string with the preset regular expression
+that represents the correct format of the username - minimum of 4
+alphanumeric characters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>string</strong> – user input of the username.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the user input matches the regular expression, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-utils.encryptor"></span><p>This module has the Encryptor class to provide hash and salt functions to passwords.</p>
+<dl class="class">
+<dt id="utils.encryptor.Encryptor">
+<em class="property">class </em><code class="descclassname">utils.encryptor.</code><code class="descname">Encryptor</code><a class="headerlink" href="#utils.encryptor.Encryptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Encryptor class provides static functions to encrypt and verify passwords.</p>
+<p>The code is adapted from <a class="reference external" href="https://www.vitoshacademy.com/hashing-passwords-in-python/">https://www.vitoshacademy.com/hashing-passwords-in-python/</a></p>
+<dl class="staticmethod">
+<dt id="utils.encryptor.Encryptor.encrypt">
+<em class="property">static </em><code class="descname">encrypt</code><span class="sig-paren">(</span><em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.encryptor.Encryptor.encrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encrypt a plain password string using hash and salt.</p>
+<p>It creates a random salt using SHA-256 method and then creates a hash of
+the plain password plus the salt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>password</strong> – the plain string of the password.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string of hash value of the password with the salt prefixed.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="utils.encryptor.Encryptor.verify">
+<em class="property">static </em><code class="descname">verify</code><span class="sig-paren">(</span><em>password_plain</em>, <em>password_hash_and_salt</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.encryptor.Encryptor.verify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verifies if the plain password matches the hashed password.</p>
+<p>It first extracts the salt from the hashed password and then uses the same
+method to generate a hash with the salt and the plain password. Lastly it
+compares the newly generated hash with hashed password.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>password_plain</strong> – a plain password string to be verified.</p></li>
+<li><p><strong>password_hash_and_salt</strong> – the saved hash value of the correct password.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the plain password matches the saved password, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-utils.calendar_access"></span><p>This module provides functionality to interact with the Google Calendar API.</p>
+<dl class="class">
+<dt id="utils.calendar_access.CalendarAccess">
+<em class="property">class </em><code class="descclassname">utils.calendar_access.</code><code class="descname">CalendarAccess</code><a class="headerlink" href="#utils.calendar_access.CalendarAccess" title="Permalink to this definition">¶</a></dt>
+<dd><p>CalendarAccess class provides methods to access Google Calendar API.</p>
+<dl class="method">
+<dt id="utils.calendar_access.CalendarAccess.add_due_date_event">
+<code class="descname">add_due_date_event</code><span class="sig-paren">(</span><em>title</em>, <em>desc</em>, <em>due_date</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.calendar_access.CalendarAccess.add_due_date_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a calendar event on the due date of the book.</p>
+<p>It creates an event on the Google Calendar to remind users of returning the
+borrowed book.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> – the title of the calendar event.</p></li>
+<li><p><strong>desc</strong> – the description of the calendar event.</p></li>
+<li><p><strong>due_date</strong> – the date of the calendar event.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the event id of the newly created event.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.calendar_access.CalendarAccess.delete_event">
+<code class="descname">delete_event</code><span class="sig-paren">(</span><em>event_id</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.calendar_access.CalendarAccess.delete_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the given event from Google Calendar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>event_id</strong> – the id of the event to delete.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>no return value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-utils.voice_to_text"></span><p>This module provides functionality to allow transcribing voice to text.</p>
+<dl class="class">
+<dt id="utils.voice_to_text.VoiceToText">
+<em class="property">class </em><code class="descclassname">utils.voice_to_text.</code><code class="descname">VoiceToText</code><a class="headerlink" href="#utils.voice_to_text.VoiceToText" title="Permalink to this definition">¶</a></dt>
+<dd><p>VoiceToText class provides methods to record audio and transcribe the audio to text
+using Google Speech-to-Text API.</p>
+<dl class="attribute">
+<dt id="utils.voice_to_text.VoiceToText.MIC_NAME">
+<code class="descname">MIC_NAME</code><a class="headerlink" href="#utils.voice_to_text.VoiceToText.MIC_NAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>the default microphone of the Master Pi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="utils.voice_to_text.VoiceToText.__device_id">
+<code class="descname">__device_id</code><a class="headerlink" href="#utils.voice_to_text.VoiceToText.__device_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>the index number of the default microphone.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="utils.voice_to_text.VoiceToText.__recognizer">
+<code class="descname">__recognizer</code><a class="headerlink" href="#utils.voice_to_text.VoiceToText.__recognizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>a speech recognizer instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>speech.Recognizer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="utils.voice_to_text.VoiceToText.__audio">
+<code class="descname">__audio</code><a class="headerlink" href="#utils.voice_to_text.VoiceToText.__audio" title="Permalink to this definition">¶</a></dt>
+<dd><p>the recorded audio.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>AudioData</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.voice_to_text.VoiceToText.record_audio">
+<code class="descname">record_audio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.voice_to_text.VoiceToText.record_audio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Record audio using the default microphone</p>
+<p>It prompts the user to speak and then records and saves the audio.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.voice_to_text.VoiceToText.transcribe">
+<code class="descname">transcribe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.voice_to_text.VoiceToText.transcribe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transcribe the saved audio to text using Google Speech-to-Text API</p>
+<p>It takes the previously saved audio and transcribes it to text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the transcribed text.
+None: when there is an error.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-utils.qr_code_scanner"></span><p>This module provides functionality to scan QR codes</p>
+<dl class="class">
+<dt id="utils.qr_code_scanner.QrCodeScanner">
+<em class="property">class </em><code class="descclassname">utils.qr_code_scanner.</code><code class="descname">QrCodeScanner</code><a class="headerlink" href="#utils.qr_code_scanner.QrCodeScanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>QrCodeScanner class handles video camera to scan, decode, and save QR codes</p>
+<dl class="attribute">
+<dt id="utils.qr_code_scanner.QrCodeScanner.__video">
+<code class="descname">__video</code><a class="headerlink" href="#utils.qr_code_scanner.QrCodeScanner.__video" title="Permalink to this definition">¶</a></dt>
+<dd><p>the video stream service.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>VideoStream</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="utils.qr_code_scanner.QrCodeScanner.__found">
+<code class="descname">__found</code><a class="headerlink" href="#utils.qr_code_scanner.QrCodeScanner.__found" title="Permalink to this definition">¶</a></dt>
+<dd><p>a set of scanned QR code data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.qr_code_scanner.QrCodeScanner.scan">
+<code class="descname">scan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.qr_code_scanner.QrCodeScanner.scan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scans, decodes, and saves QR code data using the camera</p>
+<p>It will continue scanning QR code until no more QR code is found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list of QR code data expressed as string.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="mp_code.html" class="btn btn-neutral float-left" title="Master Pi" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, IoT Group 5
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
