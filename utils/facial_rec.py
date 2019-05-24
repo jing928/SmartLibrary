@@ -1,14 +1,11 @@
-# USAGE
-# With default parameters
-#     python3 03_recognise.py
-# OR specifying the encodings, screen resolution, output video and display
-#     python3 03_recognise.py -e encodings.pickle -r 240 -o output/capture.avi -y 1
+"""
+This module provides functionality for facial recognition.
 
-## Acknowledgement
-## This code is adapted from:
-## https://www.pyimagesearch.com/2018/06/18/face-recognition-with-opencv-python-and-deep-learning/
+Acknowledgement
+This code is adapted from:
+https://www.pyimagesearch.com/2018/06/18/face-recognition-with-opencv-python-and-deep-learning/
+"""
 
-# import the necessary packages
 import argparse
 import pickle
 import time
