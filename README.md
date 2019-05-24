@@ -149,4 +149,4 @@ Master Pi will be activated.
 
 ## Documentation
 
-A link to Sphinx Documentation, e.g. we can host on GitHub Pages...
+Please view the website for Sphinx Documentation: [Go](http://smartlibrary.epizy.com/)
