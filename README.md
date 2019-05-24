@@ -63,7 +63,65 @@ Run the following to install all required dependencies:
 
 ## Configuration
 
-blah blah
+### Create Cloud SQL Database
+
+To use the system, one must first create a MySQL database, preferably with one of cloud service provides,
+such as Google Cloud Platform. Then create a `db_config.json` file in the root directory of this
+project with following information.
+
+```json
+{
+    "HOST": "<Host Name>",
+    "USER": "<User Name",
+    "PASSWORD": "<Password>",
+    "DATABASE": "<DB Name"
+}
+``` 
+
+### Create Master Pi IP Configuration
+
+For the Reception Pi to communicate with the Master Pi, one must provide an `ip_config.json` file
+in the root directory of this project with the following information.
+
+```json
+{
+  "ip": "<IP Address of the Master Pi>"
+}
+
+```
+
+### Setup Audio/Video Device Configuration
+
+The Smart Library System comes with two USB cameras (**Microsoft® LifeCam HD-3000**) to enable for
+facial and voice search functionality.
+
+For the Pi to know the default device, one must add the `.asoundrc` file to the home direction of the Pi.
+
+```
+pcm.!default {
+  type asym
+  capture.pcm "mic"
+  playback.pcm "speaker"
+}
+pcm.mic {
+  type plug
+  slave {
+    pcm "hw:1,0"
+  }
+}
+pcm.speaker {
+  type plug
+  slave {
+    pcm "hw:0,0"
+  }
+}
+```
+ 
+### Setup Google Calendar API
+
+The system automatically creates event on due date when a customer borrows a book on the Google Calendar, therefore,
+one must obtain a `credentials.json` file from Google Calendar API and add it to the root directory
+of this project.
 
 
 
