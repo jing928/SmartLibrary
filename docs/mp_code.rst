@@ -4,6 +4,9 @@ Master Pi
 .. automodule:: master_pi_app
    :members:
 
+.. automodule:: mp_app
+   :members:
+
 .. automodule:: mp_app.mp_console
    :members:
 

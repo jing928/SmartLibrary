@@ -4,6 +4,9 @@ Reception Pi
 .. automodule:: reception_pi_app
    :members:
 
+.. automodule:: rp_app
+   :members:
+
 .. automodule:: rp_app.rp_console
    :members:
 
@@ -11,6 +14,12 @@ Reception Pi
    :members:
 
 .. automodule:: rp_app.user_login
+   :members:
+
+.. automodule:: rp_app.login_with_password
+   :members:
+
+.. automodule:: rp_app.login_with_face
    :members:
 
 .. automodule:: rp_app.data_access_local
