@@ -106,7 +106,7 @@ def editbook(id):
                 'author': editbookform.author.data,
                 'pubDate': editbookform.pubdate.data.strftime("%Y-%m-%d")}
 
-        response = requests.post(url + '/book', data=json.dumps(data), headers=headers)
+        response = requests.put(url + '/book/' + id, data=json.dumps(data), headers=headers)
 
         # data = json.loads(response.text)
         # print('response: ' + data)

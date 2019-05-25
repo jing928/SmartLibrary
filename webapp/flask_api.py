@@ -104,16 +104,16 @@ def addBook():
     return bookSchema.jsonify(newBook)
 
 
-# Endpoint to update person.
+# Endpoint to update book.
 @api.route("/book/<id>", methods=["PUT"])
 def updateBook(id):
     book = Book.query.get(id)
     print(book)
 
-    book.Title = request.json['Title']
-    book.ISBN = request.json['ISBN']
-    book.Author = request.json['Author']
-    book.PublishedDate = request.json['PublishedDate']
+    book.Title = request.json['title']
+    book.ISBN = request.json['isbn']
+    book.Author = request.json['author']
+    book.PublishedDate = request.json['pubDate']
 
     db.session.commit()
 
