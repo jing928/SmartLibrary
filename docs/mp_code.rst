@@ -1,8 +1,14 @@
 Master Pi
 =========
 
+Main
+----
+
 .. automodule:: master_pi_app
    :members:
+
+MP App Package
+--------------
 
 .. automodule:: mp_app
    :members:

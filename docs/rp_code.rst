@@ -1,8 +1,14 @@
 Reception Pi
 ============
 
+Main
+----
+
 .. automodule:: reception_pi_app
    :members:
+
+RP App Package
+--------------
 
 .. automodule:: rp_app
    :members:
