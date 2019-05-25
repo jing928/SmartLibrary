@@ -25,15 +25,17 @@ class FacialRecognition:
         __username (str, None): username stored in encodings.pickle
         __args (dict, None): stores the arguments used for recognition
         __face_data: pre-encoded facial data
-        __found (bool): predicates whether a matched face is found
+        __found_user (bool): predicates whether a match is found
+        __max_attempts (int): the maximum number of scans the system will try if no match
         __video (VideoStream): a VideoStream instance
     """
 
-    def __init__(self):
+    def __init__(self, max_attempts=5):
         self.__username = None
         self.__args = None
         self.__face_data = None
-        self.__found = False
+        self.__found_user = False
+        self.__max_attempts = max_attempts
         self.__video = VideoStream()
 
     def __start_camera(self):
@@ -118,15 +120,15 @@ class FacialRecognition:
         if len(names) != 1:
             # If more than faces or no face were recognized, we count it as
             # not found, as only one user is allowed at a time
-            self.__found = False
-            print('Cannot recognize the face. Retrying...')
+            self.__found_user = False
+            print('Cannot recognize the face...')
             # Set a flag to sleep the cam for fixed time
             time.sleep(2.0)
         else:
             # print to console, identified person
             print('Person found: {}'.format(name))
             self.__username = name
-            self.__found = True
+            self.__found_user = True
 
     def recognize(self):
         """Recognize the face to find username
@@ -137,8 +139,14 @@ class FacialRecognition:
         Returns:
             None
         """
-        while not self.__found:
+        attempts = 0
+        out_attempts = False
+        while not self.__found_user and not out_attempts:
             self.__scan_frame()
+            attempts += 1
+            out_attempts = attempts >= self.__max_attempts
+            if out_attempts:
+                print('Too many attempts. Please try again later...\n')
 
         # cleanup
         cv2.destroyAllWindows()
