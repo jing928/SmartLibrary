@@ -117,37 +117,11 @@ class FacialRecognition:
                 self.__username = name
                 break
 
-            # if the video writer is None *AND* we are supposed to write
-            # the output video to disk initialize the writer
-            if writer is None and args["output"] is not None:
-                fourcc = cv2.VideoWriter_fourcc(*"MJPG")
-                writer = cv2.VideoWriter(args["output"], fourcc, 20,
-                                         (frame.shape[1], frame.shape[0]), True)
-
-            # if the writer is not None, write the frame with recognized
-            # faces t odisk
-            if writer is not None:
-                writer.write(frame)
-
-            # check to see if we are supposed to display the output frame to
-            # the screen
-            if args["display"] > 0:
-                cv2.imshow("Frame", frame)
-                key = cv2.waitKey(1) & 0xFF
-
-                # if the `q` key was pressed, break from the loop
-                if key == ord("q"):
-                    break
-
-            # do a bit of cleanup
+        # do a bit of cleanup
         cv2.destroyAllWindows()
-        video_stream.stop()
+        self.__video.stop()
 
-        # check to see if the video writer point needs to be released
-        if writer is not None:
-            writer.release()
-
-    def get_username(self):
+    def recognize(self):
         """Get user name using facial recognition
 
         Returns:
