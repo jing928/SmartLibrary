@@ -119,6 +119,7 @@ def updateBook(id):
 
     return bookSchema.jsonify(book)
 
+
 # Endpoint to delete a book.
 @api.route("/book/<id>", methods=["DELETE"])
 def deleteBook(id):

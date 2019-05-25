@@ -9,6 +9,7 @@ site = Blueprint("site", __name__)
 base_url = 'http://' + Config.HOST_IP + ':' + Config.PORT
 headers = {"Content-type": "application/json"}
 
+
 # Web site page routing
 @site.route('/')
 def home():
@@ -29,6 +30,7 @@ def index():
     data = json.loads(response.text)
 
     return render_template("book.html", books=data, form=addbookform)
+
 
 # website routing for add book function
 @site.route('/addbook', methods=['GET', 'POST'])
@@ -61,10 +63,10 @@ def addbook():
 
     return render_template("addbook.html", form=addbookform)
 
+
 # website routing for display book details in Edit page - GET method
 @site.route('/editbook/<id>', methods=['GET'])
 def getbook(id):
-
     # Check if the user already logged in
     if session.get('username') is None:
         return redirect('/login')
@@ -82,6 +84,7 @@ def getbook(id):
 
     return render_template("editbook.html", form=editbookform)
 
+
 # website routing for edit book details in Edit page - POST method
 @site.route('/editbook/<id>', methods=['POST'])
 def editbook(id):
@@ -94,8 +97,8 @@ def editbook(id):
     # This validation will be Always false for the first time open the page
     if editbookform.validate_on_submit():
         print('Edit book request {}: {}: {}: {}'.format(editbookform.isbn.data,
-                                                       editbookform.title.data, editbookform.author.data,
-                                                       editbookform.pubdate.data))
+                                                        editbookform.title.data, editbookform.author.data,
+                                                        editbookform.pubdate.data))
 
         url = 'http://' + Config.HOST_IP + ':' + Config.PORT
         headers = {"Content-type": "application/json"}
