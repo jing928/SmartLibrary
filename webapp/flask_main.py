@@ -1,3 +1,9 @@
+"""
+This module provides program entry point to run the flask web part.
+It includes : 1. API part - api
+              2. Website part - site
+"""
+
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from config import Config
@@ -6,7 +12,23 @@ from flask_site import site
 
 
 class RunFlask:
+    """
+    The RunFlask class wraps all the componets and configurations required 
+    for flask website.
+    It provides the method to start the entire Flask website.
+    """
     def __init__(self):
+        """Initialize the website with proper configuration parameters
+        Including:
+            DB connection string,
+            Bootstrap,
+            Blueprint registration,
+            Hosting IP address.
+
+        Returns:
+            None
+
+        """
         self.app = Flask(__name__)
         self.bootstrap = Bootstrap(self.app)
         self.app.config.from_object(Config)
@@ -28,6 +50,14 @@ class RunFlask:
 
     @staticmethod
     def run():
+        """Fires up the Flask website.
+
+        It starts the flask website on the Master Pi.
+
+        Returns:
+            None
+
+        """
         flask = RunFlask()
         flask.app.run(host=Config.HOST_IP, debug=True)
 

@@ -1,6 +1,7 @@
 {% extends "bootstrap/base.html" %}
 {% block head %}
     {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     {% if title %}
         <title>Smart Library - {{ title }}</title>
     {% else %}
@@ -22,20 +23,27 @@
           <li class="active"><a href="/index">Book</a></li>
           <li><a href="/lending">Statistics</a></li>
         </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% if session['username'] %}
+          <li><a href="/logout">Log Out</a></li>
+          {% endif %}
+        </ul>
       </div>
     </div>
 </nav>
 {% endblock %}
 
 <div class="container">
+
 {% with messages = get_flashed_messages() %}
   {% if messages %}
-  <hr>
+  <div class="alert alert-success" role="alert">
     <ul>
       {% for message in messages %}
         <li>{{ message }}</li>
       {% endfor %}
     </ul>
+  </div>
   {% endif %}
 {% endwith %}
 

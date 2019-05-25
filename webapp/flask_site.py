@@ -1,3 +1,7 @@
+"""
+This module provides functionality for website frontend.
+It mainly define routings and associated methods of the website
+"""
 import requests
 import json
 from datetime import datetime
@@ -13,51 +17,64 @@ headers = {"Content-type": "application/json"}
 # Web site page routing
 @site.route('/')
 def home():
+    """ Guard the root path of the URL to make sure it goes to login page.
+
+    Returns:
+        Redirect to login page.
+
+    """
     return redirect('/login')
 
 
 @site.route('/index')
 def index():
-    addbookform = AddBookForm()
+    """ Presenting the main book page which displays all the book's info.
+
+    Returns:
+        The rendered html page for book page with all book data passed to it.
+
+    """
+
     # Check if the user already logged in
     if session.get('username') is None:
         flash('Please log in first!')
         return redirect('/login')
 
-    url = 'http://' + Config.HOST_IP + ':' + Config.PORT
-    response = requests.get(url + '/book')
-    print(Config.HOST_IP)
+    response = requests.get(base_url + '/book')
     data = json.loads(response.text)
 
-    return render_template("book.html", books=data, form=addbookform)
+    return render_template("book.html", books=data)
 
 
 # website routing for add book function
 @site.route('/addbook', methods=['GET', 'POST'])
 def addbook():
+    """ Provides functionality of the Addbook page.
+
+    Note:
+        GET method responds when first time this route is called.
+        POST method responds when user already in Addbook page and click the 
+        "add book" button
+
+    Returns:
+        If added successful, redirect to the main book page (index)
+        Otherwise return back to this Add book page
+
+    """
     addbookform = AddBookForm()
     # Check if the user already logged in
     if session.get('username') is None:
         return redirect('/login')
 
     if addbookform.validate_on_submit():
-        print('Add book request {}: {}: {}: {}'.format(addbookform.isbn.data,
-                                                       addbookform.title.data, addbookform.author.data,
-                                                       addbookform.pubdate.data))
-
-        url = 'http://' + Config.HOST_IP + ':' + Config.PORT
-        headers = {"Content-type": "application/json"}
-
         # data to be sent to api 
         data = {'isbn': addbookform.isbn.data,
                 'title': addbookform.title.data,
                 'author': addbookform.author.data,
                 'pubDate': addbookform.pubdate.data}
+        # API call to add a book with filled data
+        requests.post(base_url + '/book', data=json.dumps(data), headers=headers)
 
-        response = requests.post(url + '/book', data=json.dumps(data), headers=headers)
-
-        # data = json.loads(response.text)
-        # print('response: ' + data)
         flash('Book added successfully')
         return redirect('/index')
 
@@ -67,6 +84,15 @@ def addbook():
 # website routing for display book details in Edit page - GET method
 @site.route('/editbook/<id>', methods=['GET'])
 def getbook(id):
+    """ Provides functionality to initialize the Edit Book page with prefilled data.
+
+    Note:
+        GET method used when first time edit button is clicked on Book page.
+
+    Returns:
+        Render the Edit Book html page with pre-filled page
+
+    """
     # Check if the user already logged in
     if session.get('username') is None:
         return redirect('/login')
@@ -88,6 +114,15 @@ def getbook(id):
 # website routing for edit book details in Edit page - POST method
 @site.route('/editbook/<id>', methods=['POST'])
 def editbook(id):
+    """ Provides functionality to update book table using filled book information.
+
+    Note:
+        POST method responds when user in Editbook page and try to save the updates
+
+    Returns:
+        If updated successful, redirect to the main book page (index)
+        Otherwise return back to same Edit book page
+    """
     editbookform = EditBookForm()
 
     # Check if the user already logged in
@@ -96,20 +131,14 @@ def editbook(id):
 
     # This validation will be Always false for the first time open the page
     if editbookform.validate_on_submit():
-        print('Edit book request {}: {}: {}: {}'.format(editbookform.isbn.data,
-                                                        editbookform.title.data, editbookform.author.data,
-                                                        editbookform.pubdate.data))
-
         # data to be sent to api 
         data = {'isbn': editbookform.isbn.data,
                 'title': editbookform.title.data,
                 'author': editbookform.author.data,
                 'pubDate': editbookform.pubdate.data.strftime("%Y-%m-%d")}
 
-        response = requests.put(base_url + '/book/' + id, data=json.dumps(data), headers=headers)
+        requests.put(base_url + '/book/' + id, data=json.dumps(data), headers=headers)
 
-        # data = json.loads(response.text)
-        # print('response: ' + data)
         flash('Book Edited successfully')
         return redirect('/index')
 
@@ -119,6 +148,12 @@ def editbook(id):
 # website routing for delete book function
 @site.route("/book/<id>", methods=['POST'])
 def deletebook(id):
+    """ Provides functionality to delete a book with specific book id.
+        Call the delete API.
+
+    Returns:
+        Redirect to the main book page (index)
+    """
     url = 'http://' + Config.HOST_IP + ':' + Config.PORT
 
     response = requests.delete(url + '/book/' + id)
@@ -130,6 +165,18 @@ def deletebook(id):
 
 @site.route('/login', methods=['GET', 'POST'])
 def login():
+    """Provide functionaliy of login an existing user
+
+    Note:
+        GET method renders the login page when first time this route is called.
+        POST method responds when user input his credentials and submit the login form
+
+    Returns:
+        If added successful, redirect to the main book page (index)
+        Otherwise return back to this Add book page
+    Returns:
+        Redirect to login page
+    """
     form = LoginForm()
     if form.validate_on_submit():
         if form.username.data == Config.USER['username'] and form.password.data == Config.USER['password']:
@@ -140,6 +187,11 @@ def login():
 
 @site.route('/logout', methods=['GET', 'POST'])
 def logout():
+    """Provide functionaliy of log out a logged in user
+
+    Returns:
+        Redirect to login page
+    """
     # remove the username from the session if it is there
     session.pop('username', None)
     return redirect('/login')
@@ -147,8 +199,14 @@ def logout():
 
 @site.route('/lending')
 def render_lending():
+    """Render the statistics page of the website
+
+    Returns:
+        Render the statistics page of the website
+
+    """
     # Check if the user already logged in
     if session.get('username') is None:
         flash('Please log in first!')
         return redirect('/login')
-    return render_template('lending.html', title='Lending', url=Config.LEND_URL)
+    return render_template('lending.html', title='Statistics', url=Config.STAT_URL)
