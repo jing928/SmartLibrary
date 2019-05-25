@@ -23,136 +23,143 @@ class FacialRecognition:
 
     Attributes:
         __username (str, None): username stored in encodings.pickle
+        __args (dict, None): stores the arguments used for recognition
+        __face_data: pre-encoded facial data
+        __found_user (bool): predicates whether a match is found
+        __max_attempts (int): the maximum number of scans the system will try if no match
+        __video (VideoStream): a VideoStream instance
     """
 
-    def __init__(self):
+    def __init__(self, max_attempts=5):
         self.__username = None
+        self.__args = None
+        self.__face_data = None
+        self.__found_user = False
+        self.__max_attempts = max_attempts
+        self.__video = VideoStream()
 
-    def recognition(self):
-        """Recognize the face to find username
+    def __start_camera(self):
+        """Starts the camera and loads the necessary data
 
         Returns:
             None
 
         """
         argument_parser = argparse.ArgumentParser()
-        argument_parser.add_argument("-e", "--encodings", default='encodings.pickle',
-                                     help="path to serialized db of facial encodings")
-        argument_parser.add_argument("-r", "--resolution", type=int, default=240,
-                                     help="Resolution of the video feed")
-        argument_parser.add_argument("-o", "--output", type=str,
-                                     help="path to output video")
-        argument_parser.add_argument("-y", "--display", type=int, default=0,
-                                     help="whether or not to display output frame to screen")
-        argument_parser.add_argument("-d", "--detection-method", type=str, default="hog",
-                                     help="face detection model to use: either `hog` or `cnn`")
-        args = vars(argument_parser.parse_args())
+        argument_parser.add_argument("-e", "--encodings", default='encodings.pickle')
+        argument_parser.add_argument("-r", "--resolution", type=int, default=240)
+        argument_parser.add_argument("-o", "--output", type=str)
+        argument_parser.add_argument("-y", "--display", type=int, default=0)
+        argument_parser.add_argument("-d", "--detection-method", type=str, default="hog")
+        self.__args = vars(argument_parser.parse_args())
 
         # Load the known faces and embeddings
         print("[INFO] loading encodings...")
-        data = pickle.loads(open(args["encodings"], "rb").read())
+        self.__face_data = pickle.loads(open(self.__args["encodings"], "rb").read())
 
         # initialize the video stream and pointer to output video file, then
         # allow the camera sensor to warm up
         print("[INFO] starting video stream...")
-        video_stream = VideoStream(src=0).start()
-        writer = None
+        self.__video.start()
         time.sleep(2.0)
 
-        # loop over frames from the video file stream
+    def __scan_frame(self):
+        """Scans one frame of the video feed to find matching user
 
-        for _ in (0, 5):
-            # grab the frame from the threaded video stream
-            frame = video_stream.read()
+        Returns:
+            None
 
-            # convert the input frame from BGR to RGB then resize it to have
-            # a width of 750px (to speedup processing)
-            rgb = imutils.resize(frame, width=args["resolution"])
+        """
+        print('Scanning...')
+        print('Please face the camera.')
+        # grab the frame from the threaded video stream
+        frame = self.__video.read()
 
-            # detect the (x, y)-coordinates of the bounding boxes
-            # corresponding to each face in the input frame, then compute
-            # the facial embeddings for each face
-            boxes = face_recognition.face_locations(rgb,
-                                                    model=args["detection_method"])
-            encodings = face_recognition.face_encodings(rgb, boxes)
-            names = []
+        # convert the input frame from BGR to RGB then resize it to have
+        # a width of 750px (to speedup processing)
+        rgb = imutils.resize(frame, width=self.__args["resolution"])
 
-            # loop over the facial embeddings
-            for encoding in encodings:
-                # attempt to match each face in the input image to our known
-                # encodings
-                matches = face_recognition.compare_faces(data["encodings"],
-                                                         encoding)
-                name = "Unknown"
+        # detect the (x, y)-coordinates of the bounding boxes
+        # corresponding to each face in the input frame, then compute
+        # the facial embeddings for each face
+        boxes = face_recognition.face_locations(rgb,
+                                                model=self.__args["detection_method"])
+        encodings = face_recognition.face_encodings(rgb, boxes)
+        names = []
 
-                # check to see if we have found a match
-                if True in matches:
-                    # find the indexes of all matched faces then initialize a
-                    # dictionary to count the total number of times each face
-                    # was matched
-                    matched_indexes = [i for (i, b) in enumerate(matches) if b]
-                    counts = {}
+        # loop over the facial embeddings
+        for encoding in encodings:
+            # attempt to match each face in the input image to our known
+            # encodings
+            matches = face_recognition.compare_faces(self.__face_data["encodings"],
+                                                     encoding)
+            name = "Unknown"
 
-                    # loop over the matched indexes and maintain a count for
-                    # each recognized face face
-                    for index in matched_indexes:
-                        name = data["names"][index]
-                        counts[name] = counts.get(name, 0) + 1
+            # check to see if we have found a match
+            if True in matches:
+                # find the indexes of all matched faces then initialize a
+                # dictionary to count the total number of times each face
+                # was matched
+                matched_indexes = [i for (i, b) in enumerate(matches) if b]
+                counts = {}
 
-                    # determine the recognized face with the largest number
-                    # of votes (note: in the event of an unlikely tie Python
-                    # will select first entry in the dictionary)
-                    name = max(counts, key=counts.get)
+                # loop over the matched indexes and maintain a count for
+                # each recognized face face
+                for index in matched_indexes:
+                    name = self.__face_data["names"][index]
+                    counts[name] = counts.get(name, 0) + 1
 
-                # update the list of names
-                names.append(name)
+                # determine the recognized face with the largest number
+                # of votes (note: in the event of an unlikely tie Python
+                # will select first entry in the dictionary)
+                name = max(counts, key=counts.get)
 
-            # loop over the recognized faces
-            for ((_, _, _, _), name) in zip(boxes, names):
-                # print to console, identified person
-                print('Person found: {}'.format(name))
+            # update the list of names
+            names.append(name)
 
-                # Set a flag to sleep the cam for fixed time
-                time.sleep(3.0)
-                self.__username = name
-                break
+        if len(names) != 1:
+            # If more than faces or no face were recognized, we count it as
+            # not found, as only one user is allowed at a time
+            self.__found_user = False
+            print('Cannot recognize the face...')
+            # Set a flag to sleep the cam for fixed time
+            time.sleep(2.0)
+        else:
+            # print to console, identified person
+            print('Person found: {}'.format(name))
+            self.__username = name
+            self.__found_user = True
 
-            # if the video writer is None *AND* we are supposed to write
-            # the output video to disk initialize the writer
-            if writer is None and args["output"] is not None:
-                fourcc = cv2.VideoWriter_fourcc(*"MJPG")
-                writer = cv2.VideoWriter(args["output"], fourcc, 20,
-                                         (frame.shape[1], frame.shape[0]), True)
+    def recognize(self):
+        """Recognize the face to find username
 
-            # if the writer is not None, write the frame with recognized
-            # faces t odisk
-            if writer is not None:
-                writer.write(frame)
+        It will loop over video frame to look for matched faces.
+        If nothing mathces, it will attempt again.
 
-            # check to see if we are supposed to display the output frame to
-            # the screen
-            if args["display"] > 0:
-                cv2.imshow("Frame", frame)
-                key = cv2.waitKey(1) & 0xFF
+        Returns:
+            None
+        """
+        attempts = 0
+        out_attempts = False
+        while not self.__found_user and not out_attempts:
+            self.__scan_frame()
+            attempts += 1
+            out_attempts = attempts >= self.__max_attempts
+            if out_attempts:
+                print('Too many attempts. Please try again later...\n')
 
-                # if the `q` key was pressed, break from the loop
-                if key == ord("q"):
-                    break
-
-            # do a bit of cleanup
+        # cleanup
         cv2.destroyAllWindows()
-        video_stream.stop()
+        self.__video.stop()
 
-        # check to see if the video writer point needs to be released
-        if writer is not None:
-            writer.release()
+    def run(self):
+        """Start the facial recognition process
 
-    def get_username(self):
-        """Get user name using facial recognition
+        It starts the camera and recognizes the face
 
         Returns:
             str: username that matches the face
-
         """
-        self.recognition()
+        self.__start_camera()
+        self.recognize()
         return self.__username
