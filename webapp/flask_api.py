@@ -104,6 +104,21 @@ def addBook():
     return bookSchema.jsonify(newBook)
 
 
+# Endpoint to update person.
+@api.route("/book/<id>", methods=["PUT"])
+def updateBook(id):
+    book = Book.query.get(id)
+    print(book)
+
+    book.Title = request.json['Title']
+    book.ISBN = request.json['ISBN']
+    book.Author = request.json['Author']
+    book.PublishedDate = request.json['PublishedDate']
+
+    db.session.commit()
+
+    return bookSchema.jsonify(book)
+
 # Endpoint to delete a book.
 @api.route("/book/<id>", methods=["DELETE"])
 def deleteBook(id):

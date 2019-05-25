@@ -1,11 +1,13 @@
 import requests
 import json
+from datetime import datetime
 from flask import Blueprint, render_template, flash, redirect, session
 from config import Config
-from forms import LoginForm, AddBookForm
+from forms import LoginForm, AddBookForm, EditBookForm
 
 site = Blueprint("site", __name__)
-
+base_url = 'http://' + Config.HOST_IP + ':' + Config.PORT
+headers = {"Content-type": "application/json"}
 
 # Web site page routing
 @site.route('/')
@@ -28,7 +30,7 @@ def index():
 
     return render_template("book.html", books=data, form=addbookform)
 
-
+# website routing for add book function
 @site.route('/addbook', methods=['GET', 'POST'])
 def addbook():
     addbookform = AddBookForm()
@@ -59,9 +61,64 @@ def addbook():
 
     return render_template("addbook.html", form=addbookform)
 
+# website routing for display book details in Edit page - GET method
+@site.route('/editbook/<id>', methods=['GET'])
+def getbook(id):
 
+    # Check if the user already logged in
+    if session.get('username') is None:
+        return redirect('/login')
+
+    # Invoke API to get book information for specific book id
+    response = requests.get(base_url + '/book/' + id)
+    data = json.loads(response.text)
+    print(data)
+
+    editbookform = EditBookForm()
+    editbookform.isbn.data = data['ISBN']
+    editbookform.title.data = data['Title']
+    editbookform.author.data = data['Author']
+    editbookform.pubdate.data = datetime.strptime(data['PublishedDate'], "%Y-%m-%d")
+
+    return render_template("editbook.html", form=editbookform)
+
+# website routing for edit book details in Edit page - POST method
+@site.route('/editbook/<id>', methods=['POST'])
+def editbook(id):
+    editbookform = EditBookForm()
+
+    # Check if the user already logged in
+    if session.get('username') is None:
+        return redirect('/login')
+
+    # This validation will be Always false for the first time open the page
+    if editbookform.validate_on_submit():
+        print('Edit book request {}: {}: {}: {}'.format(editbookform.isbn.data,
+                                                       editbookform.title.data, editbookform.author.data,
+                                                       editbookform.pubdate.data))
+
+        url = 'http://' + Config.HOST_IP + ':' + Config.PORT
+        headers = {"Content-type": "application/json"}
+
+        # data to be sent to api 
+        data = {'isbn': editbookform.isbn.data,
+                'title': editbookform.title.data,
+                'author': editbookform.author.data,
+                'pubDate': editbookform.pubdate.data}
+
+        response = requests.post(url + '/book', data=json.dumps(data), headers=headers)
+
+        # data = json.loads(response.text)
+        # print('response: ' + data)
+        flash('Book Edited successfully')
+        return redirect('/index')
+
+    return render_template("editbook.html", form=editbookform)
+
+
+# website routing for delete book function
 @site.route("/book/<id>", methods=['POST'])
-def deleteBook(id):
+def deletebook(id):
     url = 'http://' + Config.HOST_IP + ':' + Config.PORT
 
     response = requests.delete(url + '/book/' + id)
