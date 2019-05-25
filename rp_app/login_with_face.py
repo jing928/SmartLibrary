@@ -13,32 +13,33 @@ class LoginWithFace:
     The LoginWithFace class provides functions of login with facial recognistion.
 
     Attributes:
-        __username (str, None): username stored in encodings.pickle
         __server_ip = ip_dict["ip"]: ip address of master pi
         __dao = DataAccessLocal(): data access object to the local database.
         face_rec = FacialRecognition() facial recognition object
     """
 
     def __init__(self):
-        self.__username = None
         ip_dict = FileAccess.get_ip_config()
         self.__server_ip = ip_dict["ip"]
         self.__dao = DataAccessLocal()
-        self.face_rec = FacialRecognition()
+        self.face_rec = FacialRecognition(max_attempts=5)
 
     def login(self):
         """
-        This method will pass username to Mp if face matched
+        This method will pass username to Master Pi if face matched
         This method will return none if face not matched
 
         Returns:
             None 
         """
-        self.__username = self.face_rec.run()
-        print(self.__username)
-        username_exists = self.__dao.check_if_user_exists(self.__username)
-        if not username_exists:
-            print("Username doesn't exist...")
+        username = self.face_rec.run()
+        if username is None:
+            print('No matched face found.\n')
             return
 
-        LoginTool.send_message(self.__username, self.__server_ip)
+        username_exists = self.__dao.check_if_user_exists(username)
+        if not username_exists:
+            print("Username doesn't exist...Please register first.\n")
+            return
+
+        LoginTool.send_message(username, self.__server_ip)
