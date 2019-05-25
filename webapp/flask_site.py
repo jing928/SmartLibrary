@@ -100,16 +100,13 @@ def editbook(id):
                                                         editbookform.title.data, editbookform.author.data,
                                                         editbookform.pubdate.data))
 
-        url = 'http://' + Config.HOST_IP + ':' + Config.PORT
-        headers = {"Content-type": "application/json"}
-
         # data to be sent to api 
         data = {'isbn': editbookform.isbn.data,
                 'title': editbookform.title.data,
                 'author': editbookform.author.data,
                 'pubDate': editbookform.pubdate.data.strftime("%Y-%m-%d")}
 
-        response = requests.put(url + '/book/' + id, data=json.dumps(data), headers=headers)
+        response = requests.put(base_url + '/book/' + id, data=json.dumps(data), headers=headers)
 
         # data = json.loads(response.text)
         # print('response: ' + data)
