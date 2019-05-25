@@ -23,6 +23,10 @@ class FacialRecognition:
 
     Attributes:
         __username (str, None): username stored in encodings.pickle
+        __args (dict, None): stores the arguments used for recognition
+        __face_data: pre-encoded facial data
+        __found (bool): predicates whether a matched face is found
+        __video (VideoStream): a VideoStream instance
     """
 
     def __init__(self):
@@ -33,6 +37,12 @@ class FacialRecognition:
         self.__video = VideoStream()
 
     def __start_camera(self):
+        """Starts the camera and loads the necessary data
+
+        Returns:
+            None
+
+        """
         argument_parser = argparse.ArgumentParser()
         argument_parser.add_argument("-e", "--encodings", default='encodings.pickle')
         argument_parser.add_argument("-r", "--resolution", type=int, default=240)
@@ -52,6 +62,12 @@ class FacialRecognition:
         time.sleep(2.0)
 
     def __scan_frame(self):
+        """Scans one frame of the video feed to find matching user
+
+        Returns:
+            None
+
+        """
         print('Scanning...')
         print('Please face the camera.')
         # grab the frame from the threaded video stream
@@ -100,10 +116,8 @@ class FacialRecognition:
             names.append(name)
 
         if len(names) != 1:
-            """
-            If more than faces or no face were recognized, we count it as
-            not found, as only one user is allowed at a time
-            """
+            # If more than faces or no face were recognized, we count it as
+            # not found, as only one user is allowed at a time
             self.__found = False
             print('Cannot recognize the face. Retrying...')
             # Set a flag to sleep the cam for fixed time
@@ -117,9 +131,11 @@ class FacialRecognition:
     def recognize(self):
         """Recognize the face to find username
 
+        It will loop over video frame to look for matched faces.
+        If nothing mathces, it will attempt again.
+
         Returns:
             None
-
         """
         while not self.__found:
             self.__scan_frame()
@@ -129,11 +145,12 @@ class FacialRecognition:
         self.__video.stop()
 
     def run(self):
-        """Get user name using facial recognition
+        """Start the facial recognition process
+
+        It starts the camera and recognizes the face
 
         Returns:
             str: username that matches the face
-
         """
         self.__start_camera()
         self.recognize()
