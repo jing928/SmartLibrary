@@ -10,7 +10,6 @@ class RunFlask:
         self.app = Flask(__name__)
         self.bootstrap = Bootstrap(self.app)
         self.app.config.from_object(Config)
-        # basedir = os.path.abspath(os.path.dirname(__file__))
 
         # Parameter to connect to GCP SQL DB
         self.host = Config.DATABASE_CONFIG['HOST']

@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
@@ -60,54 +60,54 @@ class BookSchema(ma.Schema):
         fields = ("BookID", "ISBN", "Title", "Author", "PublishedDate")
 
 
-personSchema = PersonSchema()
-personsSchema = PersonSchema(many=True)
+PERSON_SCHEMA = PersonSchema()
+PEOPLE_SCHEMA = PersonSchema(many=True)
 
-bookSchema = BookSchema()
-booksSchema = BookSchema(many=True)
+BOOK_SCHEMA = BookSchema()
+BOOKS_SCHEMA = BookSchema(many=True)
 
 
 # API endpoints for book CRUD operations
 # Endpoint to show all books.
 @api.route("/book", methods=["GET"])
-def getBooks():
+def get_books():
     books = Book.query.all()
-    result = booksSchema.dump(books)
+    result = BOOKS_SCHEMA.dump(books)
 
     return jsonify(result.data)
 
 
 # Endpoint to get book by id.
-@api.route("/book/<id>", methods=["GET"])
-def getBook(id):
-    book = Book.query.get(id)
+@api.route("/book/<book_id>", methods=["GET"])
+def get_book(book_id):
+    book = Book.query.get(book_id)
 
-    return bookSchema.jsonify(book)
+    return BOOK_SCHEMA.jsonify(book)
 
 
 # Endpoint to create new book.
 @api.route("/book", methods=["POST"])
-def addBook():
+def add_book():
     isbn = request.json["isbn"]
     title = request.json["title"]
     author = request.json["author"]
-    pubDate = request.json["pubDate"]
+    pub_date = request.json["pubDate"]
 
-    newBook = Book(ISBN=isbn,
-                   Title=title,
-                   Author=author,
-                   PublishedDate=pubDate)
+    new_book = Book(ISBN=isbn,
+                    Title=title,
+                    Author=author,
+                    PublishedDate=pub_date)
 
-    db.session.add(newBook)
+    db.session.add(new_book)
     db.session.commit()
 
-    return bookSchema.jsonify(newBook)
+    return BOOK_SCHEMA.jsonify(new_book)
 
 
 # Endpoint to update book.
-@api.route("/book/<id>", methods=["PUT"])
-def updateBook(id):
-    book = Book.query.get(id)
+@api.route("/book/<book_id>", methods=["PUT"])
+def update_book(book_id):
+    book = Book.query.get(book_id)
     print(book)
 
     book.Title = request.json['title']
@@ -117,70 +117,70 @@ def updateBook(id):
 
     db.session.commit()
 
-    return bookSchema.jsonify(book)
+    return BOOK_SCHEMA.jsonify(book)
 
 
 # Endpoint to delete a book.
-@api.route("/book/<id>", methods=["DELETE"])
-def deleteBook(id):
-    book = Book.query.get(id)
+@api.route("/book/<book_id>", methods=["DELETE"])
+def delete_book(book_id):
+    book = Book.query.get(book_id)
     # Add condition required?
     db.session.delete(book)
     db.session.commit()
 
-    return bookSchema.jsonify(book)
+    return BOOK_SCHEMA.jsonify(book)
 
 
-### API endpoints for user CRUD operation ###
+# API endpoints for user CRUD operation ###
 # Endpoint to show all LmsUsers.
 @api.route("/person", methods=["GET"])
-def getPeople():
+def get_people():
     people = Person.query.all()
-    result = personsSchema.dump(people)
+    result = PEOPLE_SCHEMA.dump(people)
 
     return jsonify(result.data)
 
 
 # Endpoint to get person by id.
-@api.route("/person/<id>", methods=["GET"])
-def getPerson(id):
-    person = Person.query.get(id)
+@api.route("/person/<person_id>", methods=["GET"])
+def get_person(person_id):
+    person = Person.query.get(person_id)
 
-    return personSchema.jsonify(person)
+    return PERSON_SCHEMA.jsonify(person)
 
 
 # Endpoint to create new person.
 @api.route("/person", methods=["POST"])
-def addPerson():
+def add_person():
     name = request.json["name"]
 
-    newPerson = Person(Name=name)
+    new_person = Person(Name=name)
 
-    db.session.add(newPerson)
+    db.session.add(new_person)
     db.session.commit()
 
-    return personSchema.jsonify(newPerson)
+    return PERSON_SCHEMA.jsonify(new_person)
 
 
 # Endpoint to update person.
-@api.route("/person/<id>", methods=["PUT"])
-def personUpdate(id):
-    person = Person.query.get(id)
+@api.route("/person/<person_id>", methods=["PUT"])
+def update_person(person_id):
+    person = Person.query.get(person_id)
     name = request.json["name"]
 
     person.Name = name
 
     db.session.commit()
 
-    return personSchema.jsonify(person)
+    return PERSON_SCHEMA.jsonify(person)
 
 
 # Endpoint to delete person.
-@api.route("/person/<id>", methods=["DELETE"])
-def personDelete(id):
-    person = Person.query.get(id)
+@api.route("/person/<person_id>", methods=["DELETE"])
+def delete_person(person_id):
+    person = Person.query.get(person_id)
 
     db.session.delete(person)
     db.session.commit()
 
-    return personSchema.jsonify(person)
+    return PERSON_SCHEMA.jsonify(person)
