@@ -34,7 +34,7 @@ class LoginWithFace:
         Returns:
             None 
         """
-        self.__username = self.face_rec.get_username()
+        self.__username = self.face_rec.run()
         print(self.__username)
         username_exists = self.__dao.check_if_user_exists(self.__username)
         if not username_exists:
