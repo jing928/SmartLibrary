@@ -19,9 +19,10 @@ class LoginWithPassword:
          __password (str, None): the password of the logging user.
     """
 
-    def __init__(self):
+    def __init__(self, ip_dict=None):
         self.__dao = DataAccessLocal()
-        ip_dict = FileAccess.get_ip_config()
+        if ip_dict is None:
+            ip_dict = FileAccess.get_ip_config()
         self.__server_ip = ip_dict["ip"]
         self.__username = None
         self.__password = None
