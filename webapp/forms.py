@@ -1,6 +1,7 @@
 """
 This module implements forms on different pages to faciliate user input.
 """
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateTimeField
 from wtforms.validators import DataRequired, Length
@@ -36,7 +37,7 @@ class EditBookForm(FlaskForm):
     EditBookForm class handles user edit book process and its validation.
 
     Note: It's used on Editbook page
-    """    
+    """
     isbn = StringField('ISBN', [DataRequired(), Length(min=5, max=20)])
     title = StringField('Title', [DataRequired()])
     author = StringField('Author', [DataRequired()])

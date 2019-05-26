@@ -1,8 +1,7 @@
 """
 This module provides functionality of RESTful APIs.
-Two sets of APIs are provided:
-    1. Book Get, Create, Update, Delete API
-    2. User Get, Create, Update, Delete API (for future use)
+Two sets of APIs are provided: 1. Book Get, Create, Update, Delete API 2. User Get, Create, Update,
+Delete API (for future use)
 Reference: https://github.com/marshmallow-code/marshmallow/issues/377#issuecomment-261628415
 """
 
@@ -27,6 +26,7 @@ class Person(db.Model):
         Name: User's full name
 
     """
+
     __tablename__ = "LmsUser"
     LmsUserID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     Username = db.Column(db.String(256), unique=True)
@@ -82,6 +82,7 @@ class BookSchema(ma.Schema):
     BookSchema class define Book ORM schema corresponding to Book table.
 
     """
+
     def __init__(self, strict=True, **kwargs):
         super().__init__(strict=strict, **kwargs)
 
@@ -119,14 +120,6 @@ def get_book(book_id):
 
     Returns:
         Specific book's information in Json format.
-        Example :
-        {
-            "Author": "Suzanne Collins",
-            "BookID": 1,
-            "ISBN": "978-0439023528",
-            "PublishedDate": "2010-01-02",
-            "Title": "The Hunger Games"
-        }
 
     """
     book = Book.query.get(book_id)
