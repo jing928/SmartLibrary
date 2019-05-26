@@ -144,18 +144,23 @@ def add_book():
         book
 
     """
-    isbn = request.json["isbn"]
-    title = request.json["title"]
-    author = request.json["author"]
-    pub_date = request.json["pubDate"]
+    try:
+        isbn = request.json["isbn"]
+        title = request.json["title"]
+        author = request.json["author"]
+        pub_date = request.json["pubDate"]
 
-    new_book = Book(ISBN=isbn,
-                    Title=title,
-                    Author=author,
-                    PublishedDate=pub_date)
+        new_book = Book(ISBN=isbn,
+                        Title=title,
+                        Author=author,
+                        PublishedDate=pub_date)
 
-    db.session.add(new_book)
-    db.session.commit()
+        db.session.add(new_book)
+        db.session.commit()
+
+    except Exception as e:
+        print("Couldn't Add book")
+        print(e)
 
     return BOOK_SCHEMA.jsonify(new_book)
 
@@ -169,15 +174,19 @@ def update_book(book_id):
         When successful, return the detailed information after updating
 
     """
-    book = Book.query.get(book_id)
-    print(book)
+    try:
+        book = Book.query.get(book_id)
+        print(book)
 
-    book.Title = request.json['title']
-    book.ISBN = request.json['isbn']
-    book.Author = request.json['author']
-    book.PublishedDate = request.json['pubDate']
+        book.Title = request.json['title']
+        book.ISBN = request.json['isbn']
+        book.Author = request.json['author']
+        book.PublishedDate = request.json['pubDate']
 
-    db.session.commit()
+        db.session.commit()
+    except Exception as e:
+        print("Couldn't update book")
+        print(e)
 
     return BOOK_SCHEMA.jsonify(book)
 
@@ -191,11 +200,14 @@ def delete_book(book_id):
         When successful, return the information of the deleted book
 
     """
-    book = Book.query.get(book_id)
-    # Add condition required - if book not available
-    db.session.delete(book)
-    db.session.commit()
-
+    try:
+        book = Book.query.get(book_id)
+        # Add condition required - if book not available
+        db.session.delete(book)
+        db.session.commit()
+    except Exception as e:
+        print("Can not delete book")
+        print(e)
     return BOOK_SCHEMA.jsonify(book)
 
 
