@@ -57,9 +57,11 @@ Run the following to install all required dependencies:
 1. `pip3 install Flask`
 1. `pip3 install flask_sqlalchemy`
 1. `pip3 install flask_marshmallow`
-
-
-
+1. `pip3 install flask_bootstrap`
+1. `pip3 install flask_wtf`
+1. `pip3 install marshmallow-sqlalchemy`
+1. `pip3 install mysqlclient`
+1. `sudo apt-get install libmariadbclient-dev`
 
 ## Configuration
 
@@ -149,7 +151,7 @@ Master Pi will be activated.
 
 ### Admin Web App
 
-On the Master Pi, first change the `HOST_URL` in the `webapp/config.py` to be the IP address
+On the Master Pi, first change the `HOST_IP` in the `webapp/config.py` to be the IP address
 of the Master Pi. Then run the following:
 ```bash
 python3 webapp/flask_main.py
