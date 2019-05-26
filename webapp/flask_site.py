@@ -154,12 +154,13 @@ def deletebook(id):
     Returns:
         Redirect to the main book page (index)
     """
-    url = 'http://' + Config.HOST_IP + ':' + Config.PORT
 
-    response = requests.delete(url + '/book/' + id)
-    data = json.loads(response.text)
-
-    flash('Book "{}" deleted successfully'.format(data['Title']))
+    response = requests.delete(base_url + '/book/' + id)
+    if response.status_code == 200:
+        data = json.loads(response.text)
+        flash('Book "{}" is deleted successfully!'.format(data['Title']))
+    else:
+        flash(u'Book cannot be deleted! Data exists in other tables!')
     return redirect('/index')
 
 
