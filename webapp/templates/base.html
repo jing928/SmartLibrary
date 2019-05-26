@@ -1,0 +1,53 @@
+{% extends "bootstrap/base.html" %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% if title %}
+        <title>Smart Library - {{ title }}</title>
+    {% else %}
+        <title>Smart Library</title>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+<body>
+
+{% block navbar %}
+<nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">Smart Library</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/index">Book</a></li>
+          <li><a href="/lending">Statistics</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% if session['username'] %}
+          <li><a href="/logout">Log Out</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+</nav>
+{% endblock %}
+
+<div class="container">
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-success" role="alert">
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+{% endwith %}
+
+{% block content %}{% endblock %}
+</div>
+</body>
+{% endblock %}
