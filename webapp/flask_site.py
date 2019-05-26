@@ -71,7 +71,7 @@ def addbook():
         data = {'isbn': addbookform.isbn.data,
                 'title': addbookform.title.data,
                 'author': addbookform.author.data,
-                'pubDate': addbookform.pubdate.data}
+                'pubDate': addbookform.pubdate.data.strftime("%Y-%m-%d")}
         # API call to add a book with filled data
         requests.post(base_url + '/book', data=json.dumps(data), headers=headers)
 
