@@ -19,9 +19,10 @@ class LoginWithPassword:
          __password (str, None): the password of the logging user.
     """
 
-    def __init__(self):
+    def __init__(self, ip_dict=None):
         self.__dao = DataAccessLocal()
-        ip_dict = FileAccess.get_ip_config()
+        if ip_dict is None:
+            ip_dict = FileAccess.get_ip_config()
         self.__server_ip = ip_dict["ip"]
         self.__username = None
         self.__password = None
@@ -75,11 +76,12 @@ class LoginWithPassword:
         username_exists = self.__dao.check_if_user_exists(self.__username)
         if not username_exists:
             print("Username doesn't exist...")
-            return
+            return False
 
         hashed_password = self.__dao.get_password_for_user(self.__username)
         password_correct = Encryptor.verify(self.__password, hashed_password)
         if not password_correct:
             print('Incorrect password.\n')
-            return
+            return False
         LoginTool.send_message(self.__username, self.__server_ip)
+        return True
