@@ -2,9 +2,9 @@
 This module provides functionality for website frontend.
 It mainly define routings and associated methods of the website
 """
-import requests
 import json
 from datetime import datetime
+import requests
 from flask import Blueprint, render_template, flash, redirect, session
 from config import Config
 from forms import LoginForm, AddBookForm, EditBookForm
