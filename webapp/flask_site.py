@@ -2,9 +2,9 @@
 This module provides functionality for website frontend.
 It mainly define routings and associated methods of the website
 """
-import requests
 import json
 from datetime import datetime
+import requests
 from flask import Blueprint, render_template, flash, redirect, session
 from config import Config
 from forms import LoginForm, AddBookForm, EditBookForm
@@ -53,7 +53,7 @@ def addbook():
 
     Note:
         GET method responds when first time this route is called.
-        POST method responds when user already in Addbook page and click the 
+        POST method responds when user already in Addbook page and click the
         "add book" button
 
     Returns:
@@ -67,11 +67,11 @@ def addbook():
         return redirect('/login')
 
     if addbookform.validate_on_submit():
-        # data to be sent to api 
+        # data to be sent to api
         data = {'isbn': addbookform.isbn.data,
                 'title': addbookform.title.data,
                 'author': addbookform.author.data,
-                'pubDate': addbookform.pubdate.data}
+                'pubDate': addbookform.pubdate.data.strftime("%Y-%m-%d")}
         # API call to add a book with filled data
         requests.post(base_url + '/book', data=json.dumps(data), headers=headers)
 
@@ -82,8 +82,8 @@ def addbook():
 
 
 # website routing for display book details in Edit page - GET method
-@site.route('/editbook/<id>', methods=['GET'])
-def getbook(id):
+@site.route('/editbook/<book_id>', methods=['GET'])
+def getbook(book_id):
     """ Provides functionality to initialize the Edit Book page with prefilled data.
 
     Note:
@@ -98,7 +98,7 @@ def getbook(id):
         return redirect('/login')
 
     # Invoke API to get book information for specific book id
-    response = requests.get(base_url + '/book/' + id)
+    response = requests.get(base_url + '/book/' + book_id)
     data = json.loads(response.text)
     print(data)
 
@@ -112,8 +112,8 @@ def getbook(id):
 
 
 # website routing for edit book details in Edit page - POST method
-@site.route('/editbook/<id>', methods=['POST'])
-def editbook(id):
+@site.route('/editbook/<book_id>', methods=['POST'])
+def editbook(book_id):
     """ Provides functionality to update book table using filled book information.
 
     Note:
@@ -131,13 +131,13 @@ def editbook(id):
 
     # This validation will be Always false for the first time open the page
     if editbookform.validate_on_submit():
-        # data to be sent to api 
+        # data to be sent to api
         data = {'isbn': editbookform.isbn.data,
                 'title': editbookform.title.data,
                 'author': editbookform.author.data,
                 'pubDate': editbookform.pubdate.data.strftime("%Y-%m-%d")}
 
-        requests.put(base_url + '/book/' + id, data=json.dumps(data), headers=headers)
+        requests.put(base_url + '/book/' + book_id, data=json.dumps(data), headers=headers)
 
         flash('Book Edited successfully')
         return redirect('/index')
@@ -146,8 +146,8 @@ def editbook(id):
 
 
 # website routing for delete book function
-@site.route("/book/<id>", methods=['POST'])
-def deletebook(id):
+@site.route("/book/<book_id>", methods=['POST'])
+def deletebook(book_id):
     """ Provides functionality to delete a book with specific book id.
         Call the delete API.
 
@@ -155,7 +155,7 @@ def deletebook(id):
         Redirect to the main book page (index)
     """
 
-    response = requests.delete(base_url + '/book/' + id)
+    response = requests.delete(base_url + '/book/' + book_id)
     if response.status_code == 200:
         data = json.loads(response.text)
         flash('Book "{}" is deleted successfully!'.format(data['Title']))
@@ -180,7 +180,8 @@ def login():
     """
     form = LoginForm()
     if form.validate_on_submit():
-        if form.username.data == Config.USER['username'] and form.password.data == Config.USER['password']:
+        if form.username.data == Config.USER['username'] \
+                and form.password.data == Config.USER['password']:
             session["username"] = form.username.data
             return redirect('/index')
     return render_template('login.html', title='Sign In', form=form)

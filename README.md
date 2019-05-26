@@ -147,6 +147,14 @@ Then this will start the Master Pi console and the Master Pi will continue liste
 sent by the Reception Pi. Whenever a user logs in on the Reception Pi, the main menu of the 
 Master Pi will be activated.
 
+### Admin Web App
+
+On the Master Pi, first change the `HOST_URL` in the `webapp/config.py` to be the IP address
+of the Master Pi. Then run the following:
+```bash
+python3 webapp/flask_main.py
+``` 
+
 ## Documentation
 
 Please view the website for Sphinx Documentation: [Go](http://smartlibrary.epizy.com/)

@@ -16,6 +16,9 @@ Utilities
 .. automodule:: utils.encryptor
    :members:
 
+.. automodule:: utils.login_tool
+   :members:
+
 .. automodule:: utils.calendar_access
    :members:
 
@@ -23,4 +26,7 @@ Utilities
    :members:
 
 .. automodule:: utils.qr_code_scanner
+   :members:
+
+.. automodule:: utils.facial_recognition
    :members:

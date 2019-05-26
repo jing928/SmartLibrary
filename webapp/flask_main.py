@@ -1,7 +1,6 @@
 """
 This module provides program entry point to run the flask web part.
-It includes : 1. API part - api
-              2. Website part - site
+It includes: 1. API part - api 2. Website part - site
 """
 
 from flask import Flask
@@ -17,6 +16,7 @@ class RunFlask:
     for flask website.
     It provides the method to start the entire Flask website.
     """
+
     def __init__(self):
         """Initialize the website with proper configuration parameters
         Including:

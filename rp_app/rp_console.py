@@ -12,7 +12,7 @@ class RpConsole:
     RpConsole class handles the Reception Pi Console Menu function.
 
     Attributes:
-        menu_items ([str]): a list of menu items to print.
+        menu_items (list): a list of menu items to print.
         menu_end_number (int): the choice number for the last selectable item.
     """
 

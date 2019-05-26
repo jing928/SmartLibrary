@@ -34,11 +34,11 @@
           <input type="hidden" value="{{book.title}}" name="title">
           <input type="submit" value="Delete" class="btn btn-danger">
         </form> -->
-        <form method="POST" action="{{ url_for('site.deletebook', id=book.BookID) }}" style="display: inline">
+        <form method="POST" action="{{ url_for('site.deletebook', book_id=book.BookID) }}" style="display: inline">
           <!-- <input type="hidden" name="_method" value="DELETE" /> -->
           <input type="submit" value="Delete" class="btn btn-danger">
         </form>
-        <form method="GET" action="{{ url_for('site.editbook', id=book.BookID) }}" style="display: inline">
+        <form method="GET" action="{{ url_for('site.editbook', book_id=book.BookID) }}" style="display: inline">
           <!-- <input type="hidden" name="_method" value="DELETE" /> -->
           <input type="submit" value="Edit" class="btn btn-primary">
         </form>
